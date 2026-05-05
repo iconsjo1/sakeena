@@ -119,6 +119,38 @@
           <input type="checkbox" id="showStreak">
           <span>عرض عداد الأيام المتتالية</span>
         </label>
+
+        <label class="check">
+          <input type="checkbox" id="syncEnabled">
+          <span>المزامنة بين الأجهزة (نفس حساب المتصفح)</span>
+        </label>
+      </section>
+
+      <!-- TTS / Recitation -->
+      <section class="card">
+        <h2>🎙️ التلاوة الصوتية (تجريبي)</h2>
+        <p class="help">قراءة صوتية للذكر تستخدم محرك الصوت في المتصفح. الصوت العربي قد لا يكون متوفرًا في كل الأجهزة.</p>
+
+        <label class="check">
+          <input type="checkbox" id="ttsEnabled">
+          <span>تفعيل التلاوة الصوتية للأذكار</span>
+        </label>
+
+        <div class="row">
+          <label>سرعة التلاوة <span class="hint">(0.5 = أبطأ، 1.5 = أسرع)</span></label>
+          <div class="range-row">
+            <input type="range" id="ttsRate" min="0.5" max="1.5" step="0.05">
+            <span class="range-value" id="ttsRateVal">0.85</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <label>مستوى الصوت</label>
+          <div class="range-row">
+            <input type="range" id="ttsVolume" min="0" max="1" step="0.05">
+            <span class="range-value" id="ttsVolumeVal">0.6</span>
+          </div>
+        </div>
       </section>
 
       <!-- DND Schedule -->

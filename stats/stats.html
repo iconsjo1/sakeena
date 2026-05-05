@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إحصاءات سكينة</title>
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <div class="logo-mark">س</div>
+        <div>
+          <h1>إحصاءاتي مع سكينة</h1>
+          <p id="hijriToday">— —</p>
+        </div>
+      </div>
+      <a class="back-link" href="../options/options.html">← الإعدادات</a>
+    </header>
+
+    <!-- Hero metrics -->
+    <section class="hero-metrics">
+      <div class="metric metric-streak">
+        <div class="metric-icon">✨</div>
+        <div class="metric-value" id="metricStreak">0</div>
+        <div class="metric-label">يوم متتالي</div>
+        <div class="metric-sub" id="metricStreakSub">—</div>
+      </div>
+      <div class="metric metric-total">
+        <div class="metric-icon">📿</div>
+        <div class="metric-value" id="metricTotal">0</div>
+        <div class="metric-label">إجمالي الأذكار المعروضة</div>
+      </div>
+      <div class="metric metric-read">
+        <div class="metric-icon">📖</div>
+        <div class="metric-value" id="metricRead">0</div>
+        <div class="metric-label">قُرئت بتأمّل</div>
+        <div class="metric-sub" id="metricReadRatio">—</div>
+      </div>
+      <div class="metric metric-days">
+        <div class="metric-icon">🗓️</div>
+        <div class="metric-value" id="metricDays">0</div>
+        <div class="metric-label">يوم نشط</div>
+        <div class="metric-sub" id="metricLongest">—</div>
+      </div>
+    </section>
+
+    <!-- Categories breakdown -->
+    <section class="card">
+      <h2>📊 توزيع الأذكار التي رأيتها حسب الفئة</h2>
+      <p class="help">آخر 30 ذكرًا — بنية تساعدك تعرف وين تنتبه أكثر.</p>
+      <div class="cat-bars" id="catBars">
+        <div class="empty-state">لم تظهر أذكار بعد</div>
+      </div>
+    </section>
+
+    <!-- Activity calendar (last 30 days heatmap) -->
+    <section class="card">
+      <h2>🌱 خريطة نشاطك (آخر ٣٠ يومًا)</h2>
+      <p class="help">كل مربع يمثل يومًا. كلما كان أغمق، كلما كان نشاطك أكثر.</p>
+      <div class="heatmap" id="heatmap"></div>
+      <div class="heatmap-legend">
+        <span>أقل</span>
+        <div class="legend-cell legend-0"></div>
+        <div class="legend-cell legend-1"></div>
+        <div class="legend-cell legend-2"></div>
+        <div class="legend-cell legend-3"></div>
+        <div class="legend-cell legend-4"></div>
+        <span>أكثر</span>
+      </div>
+    </section>
+
+    <!-- Sync + Backup -->
+    <section class="card">
+      <h2>☁️ مزامنة ونسخ احتياطي</h2>
+
+      <div class="row-feature">
+        <div>
+          <div class="feature-title">المزامنة بين الأجهزة</div>
+          <div class="feature-help" id="syncStatus">آخر مزامنة: —</div>
+        </div>
+        <button class="btn btn-secondary" id="syncNowBtn">مزامنة الآن</button>
+      </div>
+
+      <div class="row-feature">
+        <div>
+          <div class="feature-title">نسخة احتياطية كاملة</div>
+          <div class="feature-help">احفظ كل بياناتك (إعدادات + streak + أدعية مخصصة) بملف JSON.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-secondary" id="backupBtn">⬇️ تصدير</button>
+          <button class="btn btn-secondary" id="restoreBtn">⬆️ استعادة</button>
+          <input type="file" id="restoreFile" accept=".json,application/json" style="display:none;">
+        </div>
+      </div>
+    </section>
+
+    <!-- Reset -->
+    <section class="card card--danger">
+      <h2>⚠️ إعادة الإحصاءات</h2>
+      <p class="help">إعادة عداد الأذكار المعروضة/المقروءة (لن يتأثر streak أو الأدعية المخصصة).</p>
+      <button class="btn btn-danger" id="resetStatsBtn">إعادة الإحصاءات</button>
+    </section>
+
+    <div class="dua-box">
+      <p>اللهم اجعل سكينة سببًا في ذكرك، وتقبّل من <bdi>عبد الفتاح</bdi> ومن سعى في إخراجها، آمين.</p>
+    </div>
+  </div>
+
+  <script src="../scripts/hijri.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>

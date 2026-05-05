@@ -124,6 +124,12 @@ $("testBtn").addEventListener("click", async () => {
 // Options
 $("optionsBtn").addEventListener("click", () => api.runtime.openOptionsPage());
 
+// Stats dashboard
+$("statsBtn").addEventListener("click", () => {
+  api.tabs.create({ url: api.runtime.getURL("stats/stats.html") });
+  window.close();
+});
+
 // Snooze clear
 $("snoozeClear").addEventListener("click", async () => {
   const { prefs = {} } = await api.storage.local.get("prefs");

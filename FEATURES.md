@@ -1,7 +1,7 @@
 # Sakeena — Features Checklist
 
 > Authoritative status of all features across shipped versions and the planned roadmap.
-> Last updated: v1.4.1
+> Last updated: v1.5
 
 ---
 
@@ -9,8 +9,8 @@
 
 | Metric | Count |
 | --- | --- |
-| Features shipped | **47** |
-| Features planned | **8** |
+| Features shipped | **54** |
+| Features planned | **5** |
 | Du'as in database | **127** |
 | English translations | **127** (100%) |
 | Quranic du'as | **10** |
@@ -222,15 +222,43 @@ selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة ج
 
 ---
 
-## 🔵 v1.5 — Audio + sync (up next)
+## ✅ v1.5 — Audio + Sync + Stats Dashboard (shipped — current)
 
-- [ ] Optional recitation audio (high-quality reciter, opt-in)
-- [ ] `chrome.storage.sync` — settings + streak across devices
-- [ ] Manual backup / restore (export entire state to JSON)
+### Cross-device Sync
+- [x] `chrome.storage.sync` integration with quota-aware writes
+- [x] Auto-pull on browser startup
+- [x] Auto-push 2.5s after any settings/streak change (debounced)
+- [x] Defensive merge for streak (keep highest values)
+- [x] Custom du'as merged by ID (no duplicates)
+- [x] Toggle to disable sync per-device
+- [x] Manual "sync now" button in stats dashboard
+
+### Backup / Restore
+- [x] Full state export to JSON (`sakeena-backup-{date}.json`)
+- [x] Includes: prefs, streak, stats, custom du'as, history
+- [x] Validates incoming backup file before applying
+- [x] Preserves identity check (only Sakeena backups accepted)
+
+### Optional Recitation (TTS)
+- [x] Browser-native Arabic TTS via `SpeechSynthesisUtterance`
+- [x] Auto-picks best Arabic voice (ar-SA → ar-EG → any ar-*)
+- [x] Configurable rate (0.5–1.5x) and volume (0.0–1.0)
+- [x] Stops automatically when overlay is dismissed
+- [x] Off by default (opt-in)
+
+### Stats Dashboard (new page)
+- [x] Hero metrics: streak, total shown, total read, active days
+- [x] Category breakdown bar chart (last 30 azkar)
+- [x] 30-day activity heatmap (5-level intensity)
+- [x] Hover tooltips with date + count per cell
+- [x] Sync status + manual sync button
+- [x] Backup / Restore controls
+- [x] Reset stats button (preserves streak + custom du'as)
+- [x] Accessible from popup via dedicated "الإحصاءات" button
 
 ---
 
-## ⚪ v2.0 — Public release (planned)
+## 🔵 v2.0 — Public release (up next)
 
 ### Internationalization
 - [ ] Full `_locales/` setup (Arabic + English UI)

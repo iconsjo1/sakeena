@@ -6,7 +6,7 @@
  *  - Theme preference propagation
  */
 
-importScripts("hijri.js", "streak.js", "context.js");
+importScripts("hijri.js", "streak.js", "context.js", "sync.js");
 
 const api = typeof browser !== "undefined" ? browser : chrome;
 
@@ -48,7 +48,12 @@ const CONSTANTS = {
     // v1.4 additions
     contextAware: true,             // analyze page → contextual du'a
     hadithMode: false,              // mix ahadith into rotation
-    hadithFrequency: 5              // 1 in N items = hadith
+    hadithFrequency: 5,             // 1 in N items = hadith
+    // v1.5 additions
+    syncEnabled: true,              // cross-device sync of settings + streak
+    ttsEnabled: false,              // optional Arabic TTS recitation
+    ttsRate: 0.85,                  // playback rate (0.5–1.5)
+    ttsVolume: 0.6                  // 0.0–1.0
   }
 };
 
@@ -83,12 +88,18 @@ api.runtime.onInstalled.addListener(async (details) => {
 
   await scheduleNext();
 
+  // Initialize sync (pulls remote state if available)
+  SyncManager.init().catch((e) => console.warn("[Sakeena] sync init failed:", e));
+
   if (details.reason === "install") {
     api.tabs.create({ url: api.runtime.getURL("options/options.html") });
   }
 });
 
-api.runtime.onStartup?.addListener(scheduleNext);
+api.runtime.onStartup?.addListener(async () => {
+  await scheduleNext();
+  SyncManager.init().catch(() => {});
+});
 
 // ---------- Smart Scheduler ----------
 
@@ -233,7 +244,10 @@ async function tryShowZikr() {
           minimalMode,
           theme: prefs.theme,
           showTranslation: prefs.showTranslation,
-          showSnooze: true
+          showSnooze: true,
+          ttsEnabled: prefs.ttsEnabled,
+          ttsRate: prefs.ttsRate,
+          ttsVolume: prefs.ttsVolume
         }
       }
     });
@@ -461,7 +475,10 @@ api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                 minimalMode: false,
                 theme: p.theme,
                 showTranslation: p.showTranslation,
-                showSnooze: true
+                showSnooze: true,
+                ttsEnabled: p.ttsEnabled,
+                ttsRate: p.ttsRate,
+                ttsVolume: p.ttsVolume
               }
             }
           });
@@ -503,6 +520,49 @@ api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         dayName: HijriUtils.dayName(),
         occasions: HijriUtils.getOccasion()
       });
+
+    } else if (msg.type === "SAKEENA_SYNC_NOW") {
+      // Manual sync trigger from popup/options
+      const result = await SyncManager.pushToSync();
+      sendResponse(result);
+
+    } else if (msg.type === "SAKEENA_SYNC_PULL") {
+      const result = await SyncManager.pullFromSync();
+      sendResponse(result);
+
+    } else if (msg.type === "SAKEENA_BACKUP") {
+      // Full backup of everything (for export)
+      const all = await api.storage.local.get(null);
+      sendResponse({
+        ok: true,
+        backup: {
+          app: "Sakeena",
+          version: "1.5.0",
+          exportedAt: new Date().toISOString(),
+          data: all
+        }
+      });
+
+    } else if (msg.type === "SAKEENA_RESTORE") {
+      // Restore from backup
+      try {
+        const backup = msg.backup;
+        if (!backup?.data || backup.app !== "Sakeena") {
+          sendResponse({ ok: false, error: "Invalid backup file" });
+          return;
+        }
+        // Whitelist of keys we'll restore (skip transient ones)
+        const RESTORE_KEYS = ["prefs", "streak", "stats", "customAzkar", "history"];
+        const restoreData = {};
+        for (const k of RESTORE_KEYS) {
+          if (backup.data[k] !== undefined) restoreData[k] = backup.data[k];
+        }
+        await api.storage.local.set(restoreData);
+        await scheduleNext();
+        sendResponse({ ok: true, restored: Object.keys(restoreData).length });
+      } catch (e) {
+        sendResponse({ ok: false, error: e.message });
+      }
     }
   })();
   return true;

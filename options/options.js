@@ -26,7 +26,11 @@ const DEFAULT_PREFS = {
   snoozeUntil: 0,
   contextAware: true,
   hadithMode: false,
-  hadithFrequency: 5
+  hadithFrequency: 5,
+  syncEnabled: true,
+  ttsEnabled: false,
+  ttsRate: 0.85,
+  ttsVolume: 0.6
 };
 
 const $ = (id) => document.getElementById(id);
@@ -35,7 +39,9 @@ const rangeFields = [
   ["minInterval", "minIntervalVal", "minIntervalMin"],
   ["maxInterval", "maxIntervalVal", "maxIntervalMin"],
   ["cooldown", "cooldownVal", "cooldownMin"],
-  ["autoDismiss", "autoDismissVal", "autoDismissSec"]
+  ["autoDismiss", "autoDismissVal", "autoDismissSec"],
+  ["ttsRate", "ttsRateVal", "ttsRate", true],
+  ["ttsVolume", "ttsVolumeVal", "ttsVolume", true]
 ];
 
 const checkFields = [
@@ -49,6 +55,8 @@ const checkFields = [
   ["vibrationAnimation", "vibrationAnimation"],
   ["soundEnabled", "soundEnabled"],
   ["showStreak", "showStreak"],
+  ["syncEnabled", "syncEnabled"],
+  ["ttsEnabled", "ttsEnabled"],
   ["dndEnabled", "dndEnabled"]
 ];
 
@@ -56,11 +64,16 @@ async function load() {
   const { prefs = {} } = await api.storage.local.get("prefs");
   const p = { ...DEFAULT_PREFS, ...prefs };
 
-  for (const [inputId, valId, prefKey] of rangeFields) {
+  for (const field of rangeFields) {
+    const [inputId, valId, prefKey, isFloat] = field;
     $(inputId).value = p[prefKey];
-    $(valId).textContent = p[prefKey];
+    $(valId).textContent = isFloat
+      ? Number(p[prefKey]).toFixed(2)
+      : p[prefKey];
     $(inputId).addEventListener("input", (e) => {
-      $(valId).textContent = e.target.value;
+      $(valId).textContent = isFloat
+        ? Number(e.target.value).toFixed(2)
+        : e.target.value;
     });
   }
 
@@ -87,8 +100,11 @@ async function save() {
   const { prefs = {} } = await api.storage.local.get("prefs");
   const updated = { ...DEFAULT_PREFS, ...prefs };
 
-  for (const [inputId, , prefKey] of rangeFields) {
-    updated[prefKey] = parseInt($(inputId).value, 10);
+  for (const field of rangeFields) {
+    const [inputId, , prefKey, isFloat] = field;
+    updated[prefKey] = isFloat
+      ? parseFloat($(inputId).value)
+      : parseInt($(inputId).value, 10);
   }
 
   if (updated.maxIntervalMin <= updated.minIntervalMin) {

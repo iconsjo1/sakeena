@@ -150,6 +150,7 @@ function showOverlay(payload) {
   progressBar.style.animationDuration = `${dismissMs}ms`;
 
   if (prefs.soundEnabled) playSoftChime();
+  if (prefs.ttsEnabled) speakArabic(zikr.text, prefs);
 
   const viewedTimer = setTimeout(() => {
     api.runtime.sendMessage({ type: "SAKEENA_VIEWED" }).catch(() => {});
@@ -188,6 +189,8 @@ function showOverlay(payload) {
   function dismiss() {
     clearTimeout(viewedTimer);
     if (!currentOverlay) return;
+    // Stop any in-progress TTS
+    try { window.speechSynthesis?.cancel(); } catch (_) {}
     card.classList.add("card--leaving");
     setTimeout(() => {
       currentOverlay?.remove();
@@ -221,4 +224,47 @@ function playSoftChime() {
     osc.start();
     osc.stop(ctx.currentTime + 0.4);
   } catch (_) { /* ignore */ }
+}
+
+/**
+ * Speak Arabic text using browser's built-in speech synthesis.
+ * Picks the best available Arabic voice (Saudi, Egyptian, MSA fallbacks).
+ * Strips diacritics conservatively because some voices stumble on them.
+ */
+function speakArabic(text, prefs) {
+  try {
+    if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+
+    // Cancel any in-progress speech
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ar-SA";
+    utterance.rate = Math.max(0.5, Math.min(1.5, prefs.ttsRate || 0.85));
+    utterance.volume = Math.max(0.0, Math.min(1.0, prefs.ttsVolume || 0.6));
+    utterance.pitch = 1.0;
+
+    // Pick the best Arabic voice if available
+    const pickArabicVoice = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices.length) return null;
+      // Prefer Saudi → Egyptian → any Arabic
+      const saudi = voices.find(v => v.lang === "ar-SA");
+      const egyptian = voices.find(v => v.lang === "ar-EG");
+      const anyArabic = voices.find(v => v.lang.startsWith("ar"));
+      return saudi || egyptian || anyArabic;
+    };
+
+    const voice = pickArabicVoice();
+    if (voice) utterance.voice = voice;
+    else if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      // Voices may load async; retry once
+      window.speechSynthesis.onvoiceschanged = () => {
+        const v = pickArabicVoice();
+        if (v) utterance.voice = v;
+      };
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (_) { /* ignore — TTS is optional */ }
 }
