@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "Sakeena — أذكار ذكية",
+  "short_name": "Sakeena",
+  "version": "1.4.0",
+  "description": "تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك. Smart Islamic remembrance for your browser.",
+
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "idle"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["scripts/content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Sakeena — أذكار ذكية",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["data/*.json", "overlay/*.html", "overlay/*.css", "icons/*.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "sakeena@iconsjo.com",
+      "strict_min_version": "115.0"
+    }
+  }
+}

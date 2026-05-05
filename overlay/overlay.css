@@ -1,0 +1,430 @@
+/* Sakeena Overlay v2 — themed, milestone-aware
+ * Theme is applied via [data-theme] on the host element.
+ */
+
+@font-face {
+  font-family: "Sakeena Arabic";
+  src: local("Amiri"), local("Scheherazade New"), local("Tajawal"),
+       local("Noto Naskh Arabic"), local("Segoe UI"), local("system-ui");
+  font-display: swap;
+}
+
+:host { all: initial; }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Sakeena Arabic", "Amiri", "Scheherazade New", "Tajawal",
+               "Noto Naskh Arabic", system-ui, -apple-system, sans-serif;
+}
+
+/* ======= THEMES ======= */
+
+/* Default: emerald (the original) */
+.theme-emerald {
+  --bg-grad: linear-gradient(155deg, #0d2818 0%, #1a4d2e 50%, #2d6a4f 100%);
+  --bg-solid: #0d2818;
+  --text: #f4f1de;
+  --text-soft: rgba(244, 241, 222, 0.65);
+  --accent: #f0d99a;
+  --accent-soft: rgba(240, 217, 154, 0.18);
+  --accent-border: rgba(240, 217, 154, 0.3);
+  --shadow-color: rgba(13, 40, 24, 0.55);
+  --halo: rgba(220, 180, 100, 0.18);
+}
+
+/* Sepia: warm parchment, like an old kitab */
+.theme-sepia {
+  --bg-grad: linear-gradient(155deg, #f4ead5 0%, #e8d9b8 50%, #d4c19a 100%);
+  --bg-solid: #f4ead5;
+  --text: #3d2914;
+  --text-soft: rgba(61, 41, 20, 0.6);
+  --accent: #8b6f47;
+  --accent-soft: rgba(139, 111, 71, 0.12);
+  --accent-border: rgba(139, 111, 71, 0.3);
+  --shadow-color: rgba(139, 111, 71, 0.25);
+  --halo: rgba(212, 165, 116, 0.18);
+}
+
+/* Midnight: deep blue, calm for evening reading */
+.theme-midnight {
+  --bg-grad: linear-gradient(155deg, #0a1628 0%, #1e2a4a 50%, #2d3a5f 100%);
+  --bg-solid: #0a1628;
+  --text: #e8eef7;
+  --text-soft: rgba(232, 238, 247, 0.6);
+  --accent: #b8d4f0;
+  --accent-soft: rgba(184, 212, 240, 0.15);
+  --accent-border: rgba(184, 212, 240, 0.3);
+  --shadow-color: rgba(10, 22, 40, 0.65);
+  --halo: rgba(184, 212, 240, 0.14);
+}
+
+/* High contrast: maximum readability */
+.theme-contrast {
+  --bg-grad: #000;
+  --bg-solid: #000;
+  --text: #ffffff;
+  --text-soft: #d0d0d0;
+  --accent: #ffd700;
+  --accent-soft: rgba(255, 215, 0, 0.2);
+  --accent-border: #ffd700;
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --halo: rgba(255, 215, 0, 0.25);
+}
+
+/* ======= CARD ======= */
+
+.card {
+  position: fixed;
+  bottom: 24px;
+  inset-inline-end: 24px;
+  z-index: 2147483647;
+
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  contain: layout style paint;
+
+  width: min(380px, calc(100vw - 32px));
+  padding: 22px 24px 18px;
+
+  background: var(--bg-grad);
+  color: var(--text);
+  border-radius: 18px;
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 50px -12px var(--shadow-color),
+    0 8px 20px -8px rgba(0, 0, 0, 0.35);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  direction: rtl;
+  text-align: right;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+
+  animation: sakeena-in 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: bottom right;
+}
+
+.theme-sepia .card {
+  border: 1px solid rgba(139, 111, 71, 0.18);
+}
+
+.theme-contrast .card {
+  border: 2px solid var(--accent);
+  box-shadow:
+    0 0 0 1px #fff inset,
+    0 20px 50px -12px var(--shadow-color);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  inset-inline-start: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, var(--halo), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card--minimal {
+  background: var(--bg-solid);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  padding: 14px 18px;
+  opacity: 0.94;
+}
+
+.card--vibrate {
+  animation: sakeena-in 520ms cubic-bezier(0.22, 1, 0.36, 1),
+             sakeena-pulse 2.4s ease-in-out 520ms 1;
+}
+
+.card--leaving {
+  animation: sakeena-out 360ms cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+/* ======= HADITH VARIANT ======= */
+
+.card--hadith .badge {
+  background: rgba(184, 212, 240, 0.18);
+  color: #b8d4f0;
+  border-color: rgba(184, 212, 240, 0.4);
+}
+
+.theme-sepia.card--hadith .badge,
+.card--hadith.theme-sepia .badge {
+  background: rgba(120, 145, 180, 0.15);
+  color: #4a6fa5;
+  border-color: rgba(120, 145, 180, 0.35);
+}
+
+.card--hadith .text {
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.narrator {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-style: italic;
+  margin-top: -4px;
+  margin-bottom: 12px;
+  text-align: end;
+  font-family: "Tajawal", system-ui, sans-serif;
+}
+
+/* ======= MILESTONE VARIANT ======= */
+
+.card--milestone {
+  background: linear-gradient(155deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, var(--bg-solid)) 100%);
+  color: var(--bg-solid);
+  border: none;
+}
+
+.card--milestone .text {
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.card--milestone .badge {
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--bg-solid);
+  border-color: transparent;
+}
+
+.card--milestone .brand,
+.card--milestone .hint,
+.card--milestone .footer {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* ======= ELEMENTS ======= */
+
+.close {
+  position: absolute;
+  top: 10px;
+  inset-inline-start: 12px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-soft);
+  border-radius: 8px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 180ms ease;
+  font-family: system-ui, sans-serif;
+}
+
+.theme-sepia .close { background: rgba(0, 0, 0, 0.05); }
+.theme-contrast .close { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--text-soft); }
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+}
+
+.theme-sepia .close:hover { background: rgba(0, 0, 0, 0.1); }
+
+.badge {
+  display: inline-block;
+  padding: 4px 11px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.theme-contrast .badge { color: var(--accent); }
+
+.text {
+  font-size: 19px;
+  line-height: 1.85;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 14px;
+}
+
+.translation {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-soft);
+  font-family: "Tajawal", "Segoe UI", system-ui, sans-serif;
+  direction: ltr;
+  text-align: left;
+  padding-top: 10px;
+  margin-top: -4px;
+  margin-bottom: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-style: italic;
+}
+
+.theme-sepia .translation {
+  border-top-color: rgba(139, 111, 71, 0.15);
+}
+
+.theme-contrast .translation {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.snooze-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.snooze-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-soft);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 10.5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Tajawal", system-ui, sans-serif;
+  transition: all 150ms ease;
+  letter-spacing: 0.2px;
+}
+
+.snooze-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  border-color: var(--accent-border);
+}
+
+.theme-sepia .snooze-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(139, 111, 71, 0.2);
+}
+
+.theme-sepia .snooze-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.theme-contrast .snooze-btn {
+  background: transparent;
+  border-color: var(--text-soft);
+}
+
+.snooze-btn.snooze-confirmed {
+  background: var(--accent);
+  color: var(--bg-solid);
+  border-color: var(--accent);
+}
+
+.theme-sepia .text { text-shadow: none; font-weight: 600; }
+
+.card--minimal .text {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-soft);
+  letter-spacing: 0.3px;
+}
+
+.brand {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.hint {
+  font-family: system-ui, sans-serif;
+  font-size: 10.5px;
+}
+
+.streak-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  color: var(--text-soft);
+  font-family: system-ui, sans-serif;
+}
+
+.streak-mini-icon { font-size: 11px; }
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.theme-sepia .progress { background: rgba(0, 0, 0, 0.05); }
+
+.progress-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 40%, transparent));
+  transform-origin: right;
+  animation: sakeena-progress linear forwards;
+}
+
+/* ======= ANIMATIONS ======= */
+
+@keyframes sakeena-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sakeena-out {
+  to { opacity: 0; transform: translateY(12px) scale(0.97); }
+}
+
+@keyframes sakeena-pulse {
+  0%, 100% { box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 20px 50px -12px var(--shadow-color),
+    0 8px 20px -8px rgba(0,0,0,0.35); }
+  50% { box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 20px 50px -12px var(--shadow-color),
+    0 0 0 4px var(--accent-soft); }
+}
+
+@keyframes sakeena-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .card--leaving, .card--vibrate { animation: none !important; }
+  .progress-bar { animation: none !important; }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سكينة</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="logo-row">
+        <div class="logo-mark">س</div>
+        <div>
+          <h1>سكينة</h1>
+          <p class="hijri-line" id="hijriLine">— —</p>
+        </div>
+      </div>
+      <div class="occasion-banner" id="occasionBanner" hidden></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="toggle-section">
+      <label class="toggle">
+        <input type="checkbox" id="enableToggle" checked>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        <span class="toggle-label">التذكير مفعَّل</span>
+      </label>
+    </section>
+
+    <!-- Snooze status (shown only when active) -->
+    <section class="snooze-status" id="snoozeStatus" hidden>
+      <span class="snooze-icon">🌙</span>
+      <span class="snooze-text">
+        مؤجَّل حتى <span id="snoozeUntilText">—</span>
+      </span>
+      <button class="snooze-clear" id="snoozeClear" type="button">إلغاء</button>
+    </section>
+
+    <!-- Streak -->
+    <section class="streak-card" id="streakCard">
+      <div class="streak-main">
+        <div class="streak-flame">✨</div>
+        <div class="streak-numbers">
+          <div class="streak-current">
+            <span class="streak-value" id="streakCurrent">0</span>
+            <span class="streak-label">يوم متتالي</span>
+          </div>
+          <div class="streak-longest">
+            أطول: <span id="streakLongest">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="streak-progress" id="streakProgress" hidden>
+        <div class="streak-progress-bar" id="streakProgressBar"></div>
+        <span class="streak-next" id="streakNext"></span>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-value" id="statShown">0</div>
+        <div class="stat-label">عُرضت</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statViewed">0</div>
+        <div class="stat-label">قُرئت</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statRatio">—</div>
+        <div class="stat-label">معدل القراءة</div>
+      </div>
+    </section>
+
+    <!-- Theme Picker -->
+    <section class="theme-section">
+      <div class="section-title">المظهر</div>
+      <div class="theme-row">
+        <button class="theme-chip theme-chip-emerald" data-theme="emerald" title="زمردي">
+          <span class="theme-dot"></span>
+        </button>
+        <button class="theme-chip theme-chip-sepia" data-theme="sepia" title="سيبيا">
+          <span class="theme-dot"></span>
+        </button>
+        <button class="theme-chip theme-chip-midnight" data-theme="midnight" title="منتصف الليل">
+          <span class="theme-dot"></span>
+        </button>
+        <button class="theme-chip theme-chip-contrast" data-theme="contrast" title="تباين عالٍ">
+          <span class="theme-dot"></span>
+        </button>
+        <button class="theme-chip theme-chip-auto" data-theme="auto" title="تلقائي">
+          <span class="theme-dot">A</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button class="btn btn-primary" id="testBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+        اعرض ذكرًا الآن
+      </button>
+      <button class="btn btn-secondary" id="optionsBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        الإعدادات المتقدمة
+      </button>
+    </section>
+
+    <footer class="foot">
+      <div class="sadaqah-mini">
+        🤲 صدقة جارية لوجه الله — أخوكم <bdi>عبد الفتاح</bdi>
+      </div>
+      <div class="version-line">v1.4 · ادعُ لنا ولوالدينا</div>
+    </footer>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
