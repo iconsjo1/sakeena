@@ -1,9 +1,13 @@
-# Sakeena — سكينة (v1.2)
+# Sakeena — سكينة (v1.5.0)
 
 > Smart Islamic remembrance for your browser. Now with custom du'a support.
 > تذكير ذكي بالأذكار — يفهم الزمن الهجري، يحترم تركيزك، ولا يزعجك.
 
 A privacy-first, calm, context-aware browser extension that delivers Islamic remembrances at the right moment.
+
+## 📬 Contact & Feedback
+- **GitHub**: [github.com/iconsjo1/sakeena](https://github.com/iconsjo1/sakeena)
+- **Email**: [sakeena@iconsjo.com](mailto:sakeena@iconsjo.com)
 
 ## 🤲 صدقة جارية
 

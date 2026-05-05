@@ -93,7 +93,7 @@
       <p data-i18n="dataCollectionDetails">
         البيانات التي يتم تخزينها محلياً:
       </p>
-      <ul data-i18n="dataCollectionList">
+      <ul id="dataCollectionList">
         <li data-i18n="dataItem1">الإعدادات والتفضيلات (مثل التوقيت والسلوك)</li>
         <li data-i18n="dataItem2">إحصاءات الاستخدام (عدد الأذكار المعروضة والمقروءة)</li>
         <li data-i18n="dataItem3">الأذكار والأدعية المخصصة التي تضيفها</li>
@@ -128,8 +128,8 @@
         إذا كان لديك أي استفسارات أو اقتراحات، يمكنك التواصل معنا عبر:
       </p>
       <ul>
-        <li data-i18n="contactEmail">البريد الإلكتروني: <a href="mailto:sakeena@example.com">sakeena@example.com</a></li>
-        <li data-i18n="contactGithub">GitHub: <a href="https://github.com/abdulfattah/sakeena" target="_blank">github.com/abdulfattah/sakeena</a></li>
+        <li><span data-i18n="contactEmailLabel">البريد الإلكتروني:</span> <a href="mailto:sakeena@iconsjo.com">sakeena@iconsjo.com</a></li>
+        <li><span data-i18n="contactGithubLabel">GitHub:</span> <a href="https://github.com/iconsjo1/sakeena" target="_blank">github.com/iconsjo1/sakeena</a></li>
       </ul>
     </div>
 
@@ -156,10 +156,12 @@
 
   <script src="../scripts/i18n.js"></script>
   <script>
-    // Initialize i18n
-    document.addEventListener('DOMContentLoaded', () => {
+    const api = typeof browser === 'object' ? browser : chrome;
+    document.addEventListener('DOMContentLoaded', async () => {
       if (typeof SakeenaI18n !== 'undefined') {
-        SakeenaI18n.translatePage('ar');
+        const data = await api.storage.local.get(['prefs']);
+        const language = data.prefs?.language || 'ar';
+        SakeenaI18n.translatePage(language);
       }
     });
   </script>

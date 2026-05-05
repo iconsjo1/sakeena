@@ -5,6 +5,7 @@
   "short_name": "Sakeena",
   "version": "1.5.0",
   "description": "__MSG_extensionDescription__",
+  "homepage_url": "https://github.com/iconsjo1/sakeena",
 
   "permissions": ["storage", "alarms", "tabs", "idle"],
 
