@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Sakeena — أذكار ذكية",
   "short_name": "Sakeena",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك. Smart Islamic remembrance for your browser.",
 
   "permissions": [

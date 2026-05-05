@@ -1,7 +1,7 @@
 # Sakeena — Features Checklist
 
 > Authoritative status of all features across shipped versions and the planned roadmap.
-> Last updated: v1.4
+> Last updated: v1.4.1
 
 ---
 
@@ -11,10 +11,11 @@
 | --- | --- |
 | Features shipped | **47** |
 | Features planned | **8** |
-| Du'as in database | **73** |
+| Du'as in database | **127** |
+| English translations | **127** (100%) |
+| Quranic du'as | **10** |
 | Ahadith in database | **12** |
-| English translations | **34** |
-| Categories | **17** |
+| Categories | **18** |
 | Themes | **5** |
 | Supported browsers | Chrome, Edge, Brave, Arc, Firefox |
 
@@ -164,7 +165,30 @@
 
 ---
 
-## ✅ v1.4 — Context engine (shipped — current)
+## ✅ v1.4.1 — Database expansion (current)
+
+### Massive content upgrade
+- [x] **Du'a database grew from 73 → 127** (74% increase)
+- [x] **Translations: 34 → 127** — every single du'a now has an English translation
+- [x] **New "Quranic Du'as" category** — 10 of the most beloved du'as from the Qur'an
+- [x] Every existing category got more entries:
+  - Morning: 5 → 10 du'as
+  - Light: 11 → 16 du'as
+  - Focus: 4 → 8 du'as
+  - After-idle: 3 → 6 du'as
+  - Night: 2 → 6 du'as (incl. tasbih reminder before sleep)
+  - Friday: 5 → 7 (Surat al-Kahf, Friday's golden hour)
+  - Ramadan: 4 → 7 (إفطار + Ramadan farewell)
+  - Dhul-Hijjah: 3 → 4
+  - Laylat al-Qadr: 2 → 4
+
+### Curated by Abdul-Fattah
+This expansion was contributed by **Abdul-Fattah** (the developer) himself —
+selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة جارية.
+
+---
+
+## ✅ v1.4 — Context engine (shipped)
 
 ### Page Context Analyzer
 - [x] Reads URL hostname + page title + meta description (never page body)
