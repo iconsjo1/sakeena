@@ -194,10 +194,10 @@ function buildOverlayMarkup(zikr, prefs, strings, styleHref, cardClasses) {
 
   return `
     <link rel="stylesheet" href="${styleHref}">
-    <div class="${cardClasses}" role="document" aria-describedby="sakeenaText">
+    <div class="${cardClasses}" role="alert" aria-live="polite">
       <button class="close" aria-label="${strings.close}" title="${strings.close}" aria-keyshortcuts="Escape">×</button>
       <div class="badge">${escapeHtml(zikr.categoryLabel || strings.categoryDefault)}</div>
-      <div class="text" id="sakeenaText">${escapeHtml(zikr.text)}</div>
+      <div class="text" id="sakeenaText">${escapeHtml(zikr.text || 'سبحان الله وبحمده')}</div>
       ${narratorMarkup}
       ${translationMarkup}
       <div class="footer">

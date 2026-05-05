@@ -265,8 +265,8 @@ selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة ج
 - [x] User-selectable UI language
 
 ### Accessibility
-- [ ] Full ARIA audit
-- [ ] Keyboard navigation for overlay
+- [x] Full ARIA audit (role="alert", aria-live)
+- [x] Keyboard navigation for overlay (Tab, Escape)
 - [ ] Screen-reader-friendly streak/stats announcements
 
 ### Distribution
