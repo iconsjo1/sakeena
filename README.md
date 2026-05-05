@@ -1,144 +1,101 @@
 # Sakeena — سكينة (v1.5.0)
 
-> Smart Islamic remembrance for your browser. Now with custom du'a support.
-> تذكير ذكي بالأذكار — يفهم الزمن الهجري، يحترم تركيزك، ولا يزعجك.
+> Smart Islamic remembrance for your browser. Now with cross-device sync, audio recitation, and detailed activity analytics.
+> تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك.
 
 A privacy-first, calm, context-aware browser extension that delivers Islamic remembrances at the right moment.
+
+## 📊 Project Summary (v1.5)
+
+| Metric | Count |
+| --- | --- |
+| Features shipped | **54** |
+| Du'as in database | **127** |
+| English translations | **127 (100%)** |
+| Categories | **18** |
+| Themes | **5** |
+| Supported browsers | Chrome, Edge, Brave, Arc, Firefox |
 
 ## 📬 Contact & Feedback
 - **GitHub**: [github.com/iconsjo1/sakeena](https://github.com/iconsjo1/sakeena)
 - **Email**: [sakeena@iconsjo.com](mailto:sakeena@iconsjo.com)
 
-## 🤲 صدقة جارية
-
-> هذا العمل مجاني — صدقة جارية لوجه الله تعالى، أُهدي ثوابه لوالديّ ولكل المسلمين.
-> أخوكم: **عبد الفتاح** — لا تنسوني من صالح دعائكم.
-
-This is a free work — offered as **صدقة جارية (continuous charity)** by **Abdul-Fattah** for the sake of Allah. Please keep us in your du'a — no fees, no telemetry, no tracking, no ads, no servers. Only the hope of accepted intention.
-
 ---
 
-## ✨ What's new in v1.2
+## 🧠 The Intelligence Stack
 
-### 📿 Custom Azkar & Du'a Manager
-You can now add your own personal du'as inside the extension:
-
-- **Personal du'as** — for parents, loved ones, deceased relatives
-- **Cause-specific** — du'a for Palestine, the ummah, ill family
-- **Categorize** them into: Du'a / Light / Focus / Morning / Evening
-- **Weight** them — high importance items appear more often
-- **Stored locally** — never sent anywhere
-- Up to 100 custom items
-
-### 🆕 Du'a category
-A built-in category of 9 widely-known du'as is now in rotation alongside the lighter dhikr.
-
----
-
-## 🕌 Hijri-Aware Intelligence (from v1.1)
-The extension knows the Islamic date and adapts:
-
-- **Friday** → boosts صلاة على النبي ﷺ
-- **Ramadan** → دعاء "اللهم إنك عفو كريم..." + أذكار الإفطار في الـ 17:00–20:00
-- **First 10 of Dhul-Hijjah** → التكبير المطلق
-- **Last 10 nights of Ramadan (odd nights)** → ليلة القدر mode
-- All conversion is **local** (no internet required)
-
-## 🔥 Streak System (from v1.1)
-Daily streak counter with silent milestones at 3 → 7 → 14 → 30 → 60 → 100 → 365 days.
-
-## 🎨 Themes (from v1.1)
-Emerald · Sepia · Midnight · High Contrast · Auto
-
----
-
-## 🧠 The full intelligence stack
+Sakeena doesn't just show random popups. It uses a multi-layered intelligence engine to decide the *right* zikr for the *right* moment:
 
 | Layer | What it does |
 | --- | --- |
-| **Time-of-day** | Morning / evening / night categories auto-activate |
-| **Hijri occasion** | Friday / Ramadan / Dhul-Hijjah / Iftar / Laylat al-Qadr |
-| **Domain context** | Quiet on Docs/Meet/Zoom; minimal mode on YouTube/Netflix |
-| **Idle detection** | Pauses on locked screen; offers reconnection azkar after long idle |
-| **Activity gate** | Defers if you're typing/scrolling |
-| **Anti-repeat** | 5-zikr sliding window + same-zikr-twice block |
-| **Cooldown** | Configurable minimum gap between azkar |
-| **Engagement** | Tracks viewed vs dismissed; feeds streak |
+| **Page Context** | Analyzes URL/Title for Travel, Healing, Success, or Anxiety to pick relevant du'as. |
+| **Time-of-Day** | Morning / Evening / Night categories auto-activate based on local time. |
+| **Hijri Occasion** | Recognizes Friday, Ramadan, Iftar time, and the first 10 of Dhul-Hijjah. |
+| **Activity Gate** | Deferral logic: pauses if you're actively typing or scrolling. |
+| **Adaptive Logic** | Automatically reduces frequency if it detects you are frequently dismissing. |
+| **Anti-Repeat** | 5-zikr sliding window + same-zikr-twice block for variety. |
+| **Domain Context** | Completely quiet on Docs/Meet/Zoom; minimal mode on YouTube/Netflix. |
 
 ---
 
-## 📁 Project structure
+## ✨ Key Pillar Features
 
-```
-azkar-extension/
-├── manifest.json
-├── data/
-│   └── azkar.json             ← 42 azkar across 10 categories
-├── scripts/
-│   ├── background.js          ← service worker: scheduling + picking
-│   ├── content.js             ← overlay injection + activity tracking
-│   ├── hijri.js               ← Gregorian↔Hijri + occasion detection
-│   └── streak.js              ← daily engagement streak engine
-├── overlay/
-│   └── overlay.css            ← 4 themes via CSS variables
-├── popup/
-│   ├── popup.html             ← Hijri date + streak + theme picker
-│   ├── popup.css
-│   └── popup.js
-├── options/
-│   ├── options.html           ← advanced preferences
-│   ├── options.css
-│   └── options.js
-└── icons/
-    └── icon{16,32,48,128}.png
-```
+### 🕌 Hijri & Occasion Awareness
+The extension knows the Islamic date and adapts its rotation:
+- **Friday** → Boosts *Salawat* upon the Prophet ﷺ and Surat al-Kahf reminders.
+- **Ramadan** → Special du'as, Iftar window reminders (~17:00–20:00), and Laylat al-Qadr mode.
+- **Dhul-Hijjah** → *Takbir* during the first 10 days.
+- **Local Engine**: All conversion is done locally; no internet required.
 
-**Total content script size: 4.8 KB** — zero idle CPU.
+### 🔥 Milestone Streak System
+Build a daily habit with your zikr:
+- **Daily Streak**: Counter increments when you *view* a zikr.
+- **Milestones**: Celebrates 3 → 7 → 14 → 30 → 60 → 100 → 365 days.
+- **Visual Rewards**: Special Gold milestone cards and progress tracking.
+
+### 🌐 Bilingual & Content Expansion
+- **127 Du'as**: A massive expansion curated for variety and authenticity.
+- **100% Translated**: Every single Arabic text has a high-quality English translation.
+- **Ahadith Mode**: 12 authentic ahadith with source and narrator attribution.
+
+---
+
+## 🚀 Modern Power Features (v1.5)
+
+### ☁️ Cross-Device Sync
+Seamlessly sync your settings, streak, and custom du'as across all your computers using your browser profile. Includes a manual "Sync Now" button and defensive merge logic.
+
+### 🎙️ Audio Recitation (TTS)
+Optional high-quality Arabic recitation using your browser's native speech engine. Configurable speed and volume.
+
+### 📊 Stats Dashboard
+A dedicated dashboard featuring:
+- **Hero Metrics**: Total shown vs. viewed and active days.
+- **Category Breakdown**: Bar chart of your last 30 azkar.
+- **Activity Heatmap**: A GitHub-style 30-day grid showing your engagement levels.
+
+### 📿 Custom Du'a Manager
+Add up to 100 personal du'as (parents, loved ones, specific needs). Categorize and weight them so they appear in your rotation.
+
+---
+
+## 🔬 Performance & Privacy
+
+- **Privacy First**: No telemetry, no tracking, no external servers.
+- **Zero Idle CPU**: Listeners are attached only when an overlay is about to show.
+- **Lightweight**: Content script is ~5 KB; zero DOM observation or polling.
+- **Styling**: Uses closed Shadow DOM to prevent CSS conflicts with any website.
 
 ---
 
 ## 🚀 Installation
 
 ### Chrome / Edge / Brave / Arc
-1. `chrome://extensions`
-2. Enable **Developer mode**
-3. **Load unpacked** → select the `azkar-extension` folder
+1. Open `chrome://extensions`
+2. Enable **Developer mode** (top right)
+3. Click **Load unpacked** and select the `azkar-extension` folder.
 
 ### Firefox
-1. `about:debugging#/runtime/this-firefox`
-2. **Load Temporary Add-on…** → select `manifest.json`
-
----
-
-## 🔬 Performance characteristics
-
-- **Idle CPU**: 0%
-- **Idle event listeners**: 0 (attached only when overlay is about to show)
-- **Idle DOM mutations**: 0
-- **Memory per tab**: ~5 KB
-- **Network requests**: 0 (everything is local — even Hijri conversion)
-- **Compositor layer**: separate (no host page repaints)
-- **Hidden tab handling**: skipped entirely
-- **Style isolation**: closed Shadow DOM (host CSS cannot affect, and vice versa)
-
----
-
-## 🛣️ Roadmap
-
-### v1.2 (planned)
-- [ ] Adaptive frequency (learns from your dismiss rate)
-- [ ] Custom azkar manager (add personal duas)
-- [ ] Bilingual mode (Arabic + English translations)
-
-### v1.3+
-- [ ] High-quality recitation audio (optional)
-- [ ] Du'a suggestions based on page context (travel, work, medical)
-- [ ] Hadith of the day mode
-- [ ] Cross-device sync via `chrome.storage.sync`
-- [ ] Webstore publication (Chrome + Firefox AMO)
-
----
-
 ## 🤲 Intent
 
 This extension is offered as **صدقة جارية** — a continuous charity. If it helps even one person remember their Lord more often during their workday, that is the entire reward sought.
