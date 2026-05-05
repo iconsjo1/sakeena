@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title data-i18n="optionsTitle"></title>
+  <title data-i18n="optionsTitle">إعدادات سكينة</title>
   <link rel="stylesheet" href="options.css">
 </head>
 
@@ -13,11 +13,12 @@
       <div class="brand">
         <div class="logo-mark" data-i18n="logoMark"></div>
         <div>
-          <h1 data-i18n="mainTitle"></h1>
-          <p data-i18n="optionsHeader"></p>
+          <h1 data-i18n="mainTitle">سكينة</h1>
+          <p data-i18n="optionsHeader">إعدادات متقدمة</p>
         </div>
       </div>
-      <button class="reset-btn" id="resetBtn" data-i18n="resetDefaults"></button>
+      <button class="reset-btn" id="resetBtn" data-i18n="resetDefaults">إعادة الإعدادات الافتراضية</button>
+      <button class="privacy-btn" id="privacyBtn" data-i18n="privacyPolicy">سياسة الخصوصية</button>
     </header>
 
     <!-- Sadaqah notice -->
@@ -32,158 +33,178 @@
     <div class="grid">
       <!-- Timing -->
       <section class="card">
-        <h2 data-i18n="timingHeading">⏱️</h2>
-        <p class="help" data-i18n="timingHelp"></p>
+        <h2 data-i18n="timingHeading">⏱️ التوقيت الذكي</h2>
+        <p class="help" data-i18n="timingHelp">يختار سكينة وقتًا عشوائيًا داخل المدى التالي — ليبقى الذكر مفاجأة لطيفة لا روتينًا متوقعًا.</p>
 
         <div class="row">
-          <label data-i18n="minInterval" data-i18n-html></label>
+          <label for="minInterval" data-i18n="minInterval" data-i18n-html>الحد الأدنى بين الأذكار</label>
           <div class="range-row">
             <input type="range" id="minInterval" min="1" max="20" step="1">
             <span class="range-value" id="minIntervalVal">3</span>
           </div>
+          <span class="setting-description" data-i18n="minIntervalLabel">الحد الأدنى بين الأذكار</span>
         </div>
 
         <div class="row">
-          <label data-i18n="maxInterval" data-i18n-html></label>
+          <label for="maxInterval" data-i18n="maxInterval" data-i18n-html>الحد الأقصى بين الأذكار</label>
           <div class="range-row">
             <input type="range" id="maxInterval" min="2" max="60" step="1">
             <span class="range-value" id="maxIntervalVal">10</span>
           </div>
+          <span class="setting-description" data-i18n="maxIntervalLabel">الحد الأقصى بين الأذكار</span>
         </div>
 
         <div class="row">
-          <label data-i18n="cooldown" data-i18n-html></label>
+          <label for="cooldown" data-i18n="cooldown" data-i18n-html>فترة الهدوء بعد كل ذكر</label>
           <div class="range-row">
             <input type="range" id="cooldown" min="0" max="15" step="1">
             <span class="range-value" id="cooldownVal">2</span>
           </div>
+          <span class="setting-description" data-i18n="cooldownLabel">فترة الهدوء بعد كل ذكر</span>
         </div>
 
         <div class="row">
-          <label data-i18n="autoDismiss" data-i18n-html></label>
+          <label for="autoDismiss" data-i18n="autoDismiss" data-i18n-html>مدة ظهور الذكر</label>
           <div class="range-row">
             <input type="range" id="autoDismiss" min="5" max="30" step="1">
             <span class="range-value" id="autoDismissVal">12</span>
           </div>
+          <span class="setting-description" data-i18n="autoDismissLabel">مدة ظهور الذكر</span>
         </div>
       </section>
 
       <!-- Behavior -->
       <section class="card">
-        <h2 data-i18n="behaviorHeading">🧠</h2>
+        <h2 data-i18n="behaviorHeading">🧠 السلوك الذكي</h2>
 
-        <label class="check">
+        <label class="check" for="contextAware">
           <input type="checkbox" id="contextAware">
-          <span data-i18n="contextAware"></span>
+          <span data-i18n="contextAware">الوعي بسياق الصفحة</span>
+          <span class="setting-description" data-i18n="contextAwareLabel">الوعي بسياق الصفحة</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="adaptiveFrequency">
           <input type="checkbox" id="adaptiveFrequency">
-          <span data-i18n="adaptiveFrequency"></span>
+          <span data-i18n="adaptiveFrequency">التعلّم التلقائي</span>
+          <span class="setting-description" data-i18n="adaptiveFrequencyLabel">التعلّم التلقائي</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="hijriAwareness">
           <input type="checkbox" id="hijriAwareness">
-          <span data-i18n="hijriAwareness"></span>
+          <span data-i18n="hijriAwareness">الوعي بالتقويم الهجري</span>
+          <span class="setting-description" data-i18n="hijriAwarenessLabel">الوعي بالتقويم الهجري</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="hadithMode">
           <input type="checkbox" id="hadithMode">
-          <span data-i18n="hadithMode"></span>
+          <span data-i18n="hadithMode">عرض حديث شريف أحيانًا</span>
+          <span class="setting-description" data-i18n="hadithModeLabel">عرض حديث شريف أحيانًا</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="showTranslation">
           <input type="checkbox" id="showTranslation">
-          <span data-i18n="showTranslation"></span>
+          <span data-i18n="showTranslation">عرض الترجمة الإنجليزية</span>
+          <span class="setting-description" data-i18n="showTranslationLabel">عرض الترجمة الإنجليزية</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="respectIdle">
           <input type="checkbox" id="respectIdle">
-          <span data-i18n="respectIdle"></span>
+          <span data-i18n="respectIdle">إيقاف التذكير عند ترك الجهاز</span>
+          <span class="setting-description" data-i18n="respectIdleLabel">إيقاف التذكير عند ترك الجهاز</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="pauseDuringTyping">
           <input type="checkbox" id="pauseDuringTyping">
-          <span data-i18n="pauseDuringTyping"></span>
+          <span data-i18n="pauseDuringTyping">تأجيل الذكر إذا كنت تكتب</span>
+          <span class="setting-description" data-i18n="pauseDuringTypingLabel">تأجيل الذكر إذا كنت تكتب</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="vibrationAnimation">
           <input type="checkbox" id="vibrationAnimation">
-          <span data-i18n="vibrationAnimation"></span>
+          <span data-i18n="vibrationAnimation">حركة نبض خفيفة</span>
+          <span class="setting-description" data-i18n="vibrationAnimationLabel">حركة نبض خفيفة</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="soundEnabled">
           <input type="checkbox" id="soundEnabled">
-          <span data-i18n="soundEnabled"></span>
+          <span data-i18n="soundEnabled">صوت لطيف عند الظهور</span>
+          <span class="setting-description" data-i18n="soundEnabledLabel">صوت لطيف عند الظهور</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="showStreak">
           <input type="checkbox" id="showStreak">
-          <span data-i18n="showStreak"></span>
+          <span data-i18n="showStreak">عرض عداد الأيام المتتالية</span>
+          <span class="setting-description" data-i18n="showStreakLabel">عرض عداد الأيام المتتالية</span>
         </label>
 
-        <label class="check">
+        <label class="check" for="syncEnabled">
           <input type="checkbox" id="syncEnabled">
-          <span data-i18n="syncEnabled"></span>
+          <span data-i18n="syncEnabled">المزامنة بين الأجهزة</span>
+          <span class="setting-description" data-i18n="syncEnabledLabel">المزامنة بين الأجهزة</span>
         </label>
       </section>
 
       <!-- TTS / Recitation -->
       <section class="card">
-        <h2 data-i18n="ttsHeading">🎙️</h2>
-        <p class="help" data-i18n="ttsHelp"></p>
+        <h2 data-i18n="ttsHeading">🎙️ التلاوة الصوتية (تجريبي)</h2>
+        <p class="help" data-i18n="ttsHelp">قراءة صوتية للذكر تستخدم محرك الصوت في المتصفح.</p>
 
-        <label class="check">
+        <label class="check" for="ttsEnabled">
           <input type="checkbox" id="ttsEnabled">
-          <span data-i18n="ttsEnabled"></span>
+          <span data-i18n="ttsEnabled">تفعيل التلاوة الصوتية للأذكار</span>
+          <span class="setting-description" data-i18n="ttsEnabledLabel">تفعيل التلاوة الصوتية</span>
         </label>
 
         <div class="row">
-          <label data-i18n="ttsRate" data-i18n-html></label>
+          <label for="ttsRate" data-i18n="ttsRate" data-i18n-html>سرعة التلاوة</label>
           <div class="range-row">
             <input type="range" id="ttsRate" min="0.5" max="1.5" step="0.05">
             <span class="range-value" id="ttsRateVal">0.85</span>
           </div>
+          <span class="setting-description" data-i18n="ttsRateLabel">سرعة التلاوة</span>
         </div>
 
         <div class="row">
-          <label data-i18n="ttsVolume"></label>
+          <label for="ttsVolume" data-i18n="ttsVolume" data-i18n-html>مستوى الصوت</label>
           <div class="range-row">
             <input type="range" id="ttsVolume" min="0" max="1" step="0.05">
             <span class="range-value" id="ttsVolumeVal">0.6</span>
           </div>
+          <span class="setting-description" data-i18n="ttsVolumeLabel">مستوى الصوت</span>
         </div>
       </section>
 
       <section class="card">
-        <h2 data-i18n="languageHeading">🌐</h2>
-        <p class="help" data-i18n="languageHelp"></p>
+        <h2 data-i18n="languageHeading">🌐 لغة الواجهة</h2>
+        <p class="help" data-i18n="languageHelp">اختر اللغة التي تريد أن يظهر بها واجهة سكينة.</p>
         <div class="row">
-          <label data-i18n="languageLabel"></label>
+          <label for="languageSelect" data-i18n="languageLabel">لغة الواجهة</label>
           <select id="languageSelect">
-            <option value="ar" data-i18n="languageArabic"></option>
-            <option value="en" data-i18n="languageEnglish"></option>
+            <option value="ar" data-i18n="languageArabic">العربية</option>
+            <option value="en" data-i18n="languageEnglish">English</option>
           </select>
+          <span class="setting-description" data-i18n="languageLabel">لغة الواجهة</span>
         </div>
       </section>
 
       <!-- DND Schedule -->
       <section class="card">
-        <h2 data-i18n="dndHeading">🌙</h2>
-        <p class="help" data-i18n="dndHelp"></p>
+        <h2 data-i18n="dndHeading">🌙 ساعات الهدوء (Do Not Disturb)</h2>
+        <p class="help" data-i18n="dndHelp">جدول ساعات يومية لا يظهر فيها أي ذكر — للنوم أو فترات العمل العميق.</p>
 
-        <label class="check">
+        <label class="check" for="dndEnabled">
           <input type="checkbox" id="dndEnabled">
-          <span data-i18n="dndEnabled"></span>
+          <span data-i18n="dndEnabled">تفعيل ساعات الهدوء المجدولة</span>
+          <span class="setting-description" data-i18n="dndEnabledLabel">تفعيل ساعات الهدوء</span>
         </label>
 
         <div class="dnd-row">
           <div class="dnd-time">
-            <label data-i18n="dndFrom"></label>
+            <label for="dndStart" data-i18n="dndFrom">من</label>
             <input type="time" id="dndStart" value="23:00">
           </div>
           <div class="dnd-time">
-            <label data-i18n="dndTo"></label>
+            <label for="dndEnd" data-i18n="dndTo">إلى</label>
             <input type="time" id="dndEnd" value="06:00">
           </div>
         </div>
@@ -205,6 +226,7 @@
         <h2 data-i18n="quietDomainsHeading">🔇</h2>
         <p class="help" data-i18n="quietDomainsHelp"></p>
         <textarea id="quietDomains" rows="5" placeholder="docs.google.com&#10;meet.google.com&#10;zoom.us"></textarea>
+        <p class="help" data-i18n="quietDomainsHelpLabel"></p>
       </section>
 
       <!-- Minimal domains -->
@@ -212,6 +234,7 @@
         <h2 data-i18n="minimalDomainsHeading">👁️</h2>
         <p class="help" data-i18n="minimalDomainsHelp"></p>
         <textarea id="minimalDomains" rows="5" placeholder="youtube.com&#10;netflix.com&#10;twitch.tv"></textarea>
+        <p class="help" data-i18n="minimalDomainsHelpLabel"></p>
       </section>
 
       <!-- Custom Azkar -->
@@ -231,26 +254,31 @@
         <p class="help" data-i18n="customAzkarHelp"></p>
 
         <div class="custom-form">
-          <textarea id="customText" rows="3" placeholder="اكتب الذكر أو الدعاء هنا..." data-i18n="customTextPlaceholder" data-i18n-attr="placeholder"></textarea>
+          <textarea id="customText" rows="3" placeholder="اكتب الذكر هنا..." data-i18n="customTextPlaceholder" data-i18n-attr="placeholder"></textarea>
           <div class="custom-meta">
+            <label for="customCategory" class="sr-only" data-i18n="customCategoryLabel">فئة الدعاء</label>
             <select id="customCategory">
-              <option value="dua" data-i18n="categoryDua"></option>
-              <option value="light" data-i18n="categoryLight"></option>
-              <option value="focus" data-i18n="categoryFocus"></option>
-              <option value="morning" data-i18n="categoryMorning"></option>
-              <option value="evening" data-i18n="categoryEvening"></option>
+              <option value="dua" data-i18n="categoryDua">أدعية</option>
+              <option value="light" data-i18n="categoryLight">خفيفة</option>
+              <option value="focus" data-i18n="categoryFocus">للتركيز</option>
+              <option value="morning" data-i18n="categoryMorning">الصباح</option>
+              <option value="evening" data-i18n="categoryEvening">المساء</option>
             </select>
+            <span class="setting-description" data-i18n="customCategoryLabel">فئة الدعاء</span>
+            
+            <label for="customWeight" class="sr-only" data-i18n="customWeightLabel">أهمية الدعاء</label>
             <select id="customWeight">
-              <option value="1" data-i18n="weightNormal"></option>
-              <option value="3" selected data-i18n="weightMedium"></option>
-              <option value="5" data-i18n="weightHigh"></option>
+              <option value="1" data-i18n="weightNormal">عادية</option>
+              <option value="3" selected data-i18n="weightMedium">متوسطة</option>
+              <option value="5" data-i18n="weightHigh">عالية</option>
             </select>
-            <button class="add-custom-btn" id="addCustomBtn" type="button" data-i18n="addCustomBtn"></button>
+            <span class="setting-description" data-i18n="customWeightLabel">أهمية الدعاء</span>
+            <button class="add-custom-btn" id="addCustomBtn" type="button" data-i18n="addCustomBtn">+ إضافة</button>
           </div>
         </div>
 
         <div class="custom-list" id="customList">
-          <div class="empty-state" data-i18n="emptyState"></div>
+          <div class="empty-state" data-i18n="emptyState">لم تُضِف أذكارًا بعد</div>
         </div>
       </section>
     </div>
@@ -262,7 +290,7 @@
   </div>
 
   <script src="../scripts/i18n.js"></script>
-  <script src="options.js"></script>
+  <script type="module" src="options.js"></script>
 </body>
 
 </html>

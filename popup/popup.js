@@ -1,4 +1,4 @@
-const api = typeof browser !== 'undefined' ? browser : chrome;
+const api = typeof browser === 'undefined' ? chrome : browser;
 
 const $ = (id) => document.getElementById(id);
 
@@ -28,7 +28,6 @@ async function loadHijri() {
     $('hijriLine').textContent = `${result.dayName} · ${result.hijri}`;
 
     if (result.occasions?.length > 0) {
-      // Show the highest-priority occasion
       const top = result.occasions.sort((a, b) => b.weight - a.weight)[0];
       const label = OCCASION_LABELS[top.key];
       if (label) {
@@ -50,68 +49,62 @@ async function loadState() {
 
   SakeenaI18n.translatePage(locale);
 
-  // Toggle
   $('enableToggle').checked = prefs.enabled !== false;
   document.querySelector('.toggle-label').textContent = getToggleLabel(
     $('enableToggle').checked,
     locale,
   );
 
-  // Snooze status
   const now = Date.now();
   if (prefs.snoozeUntil && prefs.snoozeUntil > now) {
     const until = new Date(prefs.snoozeUntil);
     const today = new Date();
     today.setHours(23, 59, 59, 999);
     const isEndOfDay = Math.abs(prefs.snoozeUntil - today.getTime()) < 60000;
-    const text = isEndOfDay
-      ? locale === 'en'
-        ? 'end of day'
-        : 'نهاية اليوم'
-      : until.toLocaleTimeString(locale === 'en' ? 'en' : 'ar', {
-          hour: '2-digit',
-          minute: '2-digit',
-        });
+    
+    let text;
+    if (isEndOfDay) {
+      text = locale === 'en' ? 'end of day' : 'نهاية اليوم';
+    } else {
+      text = until.toLocaleTimeString(locale === 'en' ? 'en' : 'ar', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+    
     $('snoozeUntilText').textContent = text;
     $('snoozeStatus').hidden = false;
   } else {
     $('snoozeStatus').hidden = true;
   }
 
-  // Stats
   $('statShown').textContent = stats.shown || 0;
   $('statViewed').textContent = stats.viewed || 0;
   const ratio = stats.shown > 0 ? Math.round((stats.viewed / stats.shown) * 100) + '%' : '—';
   $('statRatio').textContent = ratio;
 
-  // Streak
   $('streakCurrent').textContent = streak.current || 0;
   $('streakLongest').textContent = streak.longest || 0;
 
-  // Streak progress to next milestone
   const next = nextMilestone(streak.current || 0);
   if (next && (streak.current || 0) > 0) {
-    const prev = STREAK_MILESTONES.filter((m) => m <= streak.current).pop() || 0;
+    const prev = STREAK_MILESTONES.findLast((m) => m <= streak.current) || 0;
     const pct = Math.round(((streak.current - prev) / (next - prev)) * 100);
     $('streakProgress').hidden = false;
     $('streakProgress').style.setProperty('--streak-pct', pct + '%');
     $('streakProgressBar').style.setProperty('--streak-pct', pct + '%');
-    const templateKey = 'streakNext';
-    const template = SakeenaI18n.getMessage(locale, templateKey);
+    const template = SakeenaI18n.getMessage(locale, 'streakNext');
     const streakText = template.replace('$1', next - streak.current).replace('$2', next);
     $('streakNext').textContent = streakText;
-    // Apply pct to the bar's pseudo-element via a CSS variable
     $('streakProgressBar').style.cssText = `--streak-pct: ${pct}%;`;
   }
 
-  // Theme
   const activeTheme = prefs.theme || 'emerald';
   document.querySelectorAll('.theme-chip').forEach((chip) => {
     chip.classList.toggle('active', chip.dataset.theme === activeTheme);
   });
 }
 
-// Toggle
 $('enableToggle').addEventListener('change', async (e) => {
   const { prefs = {} } = await api.storage.local.get('prefs');
   prefs.enabled = e.target.checked;
@@ -120,7 +113,6 @@ $('enableToggle').addEventListener('change', async (e) => {
   document.querySelector('.toggle-label').textContent = getToggleLabel(e.target.checked, locale);
 });
 
-// Theme picker
 document.querySelectorAll('.theme-chip').forEach((chip) => {
   chip.addEventListener('click', async () => {
     const theme = chip.dataset.theme;
@@ -133,7 +125,6 @@ document.querySelectorAll('.theme-chip').forEach((chip) => {
   });
 });
 
-// Test
 $('testBtn').addEventListener('click', async () => {
   $('testBtn').disabled = true;
   await api.runtime.sendMessage({ type: 'SAKEENA_TEST_SHOW' });
@@ -143,16 +134,13 @@ $('testBtn').addEventListener('click', async () => {
   }, 200);
 });
 
-// Options
 $('optionsBtn').addEventListener('click', () => api.runtime.openOptionsPage());
 
-// Stats dashboard
 $('statsBtn').addEventListener('click', () => {
   api.tabs.create({ url: api.runtime.getURL('stats/stats.html') });
   window.close();
 });
 
-// Snooze clear
 $('snoozeClear').addEventListener('click', async () => {
   const { prefs = {} } = await api.storage.local.get('prefs');
   prefs.snoozeUntil = 0;
@@ -160,6 +148,5 @@ $('snoozeClear').addEventListener('click', async () => {
   $('snoozeStatus').hidden = true;
 });
 
-// Init
-loadState();
-loadHijri();
+await loadState();
+await loadHijri();

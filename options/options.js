@@ -1,4 +1,4 @@
-const api = typeof browser !== 'undefined' ? browser : chrome;
+const api = typeof browser === 'undefined' ? chrome : browser;
 
 const DEFAULT_PREFS = {
   enabled: true,
@@ -60,101 +60,6 @@ const checkFields = [
   ['dndEnabled', 'dndEnabled'],
 ];
 
-async function load() {
-  const { prefs = {} } = await api.storage.local.get('prefs');
-  const p = { ...DEFAULT_PREFS, ...prefs };
-
-  for (const field of rangeFields) {
-    const [inputId, valId, prefKey, isFloat] = field;
-    $(inputId).value = p[prefKey];
-    $(valId).textContent = isFloat ? Number(p[prefKey]).toFixed(2) : p[prefKey];
-    $(inputId).addEventListener('input', (e) => {
-      $(valId).textContent = isFloat ? Number(e.target.value).toFixed(2) : e.target.value;
-    });
-  }
-
-  for (const [inputId, prefKey] of checkFields) {
-    $(inputId).checked = !!p[prefKey];
-  }
-
-  $('quietDomains').value = (p.quietDomains || []).join('\n');
-  $('minimalDomains').value = (p.minimalDomains || []).join('\n');
-  $('languageSelect').value = p.language || 'ar';
-
-  // DND time fields
-  $('dndStart').value = p.dndStart || '23:00';
-  $('dndEnd').value = p.dndEnd || '06:00';
-
-  SakeenaI18n.translatePage(p.language || 'ar');
-
-  // DND day chips
-  const activeDays = p.dndDays || [0, 1, 2, 3, 4, 5, 6];
-  document.querySelectorAll('.dnd-day').forEach((btn) => {
-    const day = parseInt(btn.dataset.day, 10);
-    btn.classList.toggle('active', activeDays.includes(day));
-  });
-}
-
-async function save() {
-  const { prefs = {} } = await api.storage.local.get('prefs');
-  const updated = { ...DEFAULT_PREFS, ...prefs };
-
-  for (const field of rangeFields) {
-    const [inputId, , prefKey, isFloat] = field;
-    updated[prefKey] = isFloat ? parseFloat($(inputId).value) : parseInt($(inputId).value, 10);
-  }
-
-  if (updated.maxIntervalMin <= updated.minIntervalMin) {
-    updated.maxIntervalMin = updated.minIntervalMin + 1;
-  }
-
-  for (const [inputId, prefKey] of checkFields) {
-    updated[prefKey] = $(inputId).checked;
-  }
-
-  updated.quietDomains = parseDomains($('quietDomains').value);
-  updated.minimalDomains = parseDomains($('minimalDomains').value);
-  updated.language = $('languageSelect').value || 'ar';
-
-  // DND fields
-  updated.dndStart = $('dndStart').value || '23:00';
-  updated.dndEnd = $('dndEnd').value || '06:00';
-  updated.dndDays = Array.from(document.querySelectorAll('.dnd-day.active')).map((btn) =>
-    parseInt(btn.dataset.day, 10),
-  );
-
-  await api.storage.local.set({ prefs: updated });
-  SakeenaI18n.translatePage(updated.language);
-  flash(SakeenaI18n.getMessage(updated.language, 'saved'));
-}
-
-function parseDomains(text) {
-  return text
-    .split(/\n+/)
-    .map((s) => s.trim())
-    .filter(Boolean);
-}
-
-function flash(msg) {
-  const el = $('savedMsg');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2000);
-}
-
-$('saveBtn').addEventListener('click', save);
-
-$('resetBtn').addEventListener('click', async () => {
-  const { prefs = {} } = await api.storage.local.get('prefs');
-  const language = prefs.language || 'ar';
-  if (!confirm(SakeenaI18n.getMessage(language, 'resetConfirm'))) return;
-  await api.storage.local.set({ prefs: DEFAULT_PREFS });
-  await load();
-  flash(SakeenaI18n.getMessage(language, 'resetSaved'));
-});
-
-// ===== Custom azkar manager =====
-
 const CATEGORY_LABELS = {
   dua: 'أدعية',
   light: 'خفيفة',
@@ -168,6 +73,38 @@ const WEIGHT_LABELS = {
   3: 'متوسطة',
   5: 'عالية',
 };
+
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function flash(msg) {
+  const el = $('savedMsg');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+function parseDomains(text) {
+  return text
+    .split(/\n+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+async function handleDeleteAzkar(id) {
+  if (!confirm('حذف هذا الذكر؟')) return;
+  const { customAzkar = [] } = await api.storage.local.get('customAzkar');
+  const filtered = customAzkar.filter((z) => z.id !== id);
+  await api.storage.local.set({ customAzkar: filtered });
+  loadCustomAzkar();
+  flash('تم الحذف');
+}
 
 async function loadCustomAzkar() {
   const { customAzkar = [] } = await api.storage.local.get('customAzkar');
@@ -195,24 +132,96 @@ async function loadCustomAzkar() {
     list.appendChild(div);
   });
 
-  // Wire up delete buttons
   list.querySelectorAll('.custom-delete').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      if (!confirm('حذف هذا الذكر؟')) return;
-      const id = btn.dataset.id;
-      const { customAzkar = [] } = await api.storage.local.get('customAzkar');
-      const filtered = customAzkar.filter((z) => z.id !== id);
-      await api.storage.local.set({ customAzkar: filtered });
-      loadCustomAzkar();
-      flash('تم الحذف');
-    });
+    btn.addEventListener('click', () => handleDeleteAzkar(btn.dataset.id));
   });
 }
+
+async function load() {
+  const { prefs = {} } = await api.storage.local.get('prefs');
+  const p = { ...DEFAULT_PREFS, ...prefs };
+
+  for (const field of rangeFields) {
+    const [inputId, valId, prefKey, isFloat] = field;
+    $(inputId).value = p[prefKey];
+    $(valId).textContent = isFloat ? Number(p[prefKey]).toFixed(2) : p[prefKey];
+    $(inputId).addEventListener('input', (e) => {
+      $(valId).textContent = isFloat ? Number(e.target.value).toFixed(2) : e.target.value;
+    });
+  }
+
+  for (const [inputId, prefKey] of checkFields) {
+    $(inputId).checked = !!p[prefKey];
+  }
+
+  $('quietDomains').value = (p.quietDomains || []).join('\n');
+  $('minimalDomains').value = (p.minimalDomains || []).join('\n');
+  $('languageSelect').value = p.language || 'ar';
+
+  $('dndStart').value = p.dndStart || '23:00';
+  $('dndEnd').value = p.dndEnd || '06:00';
+
+  SakeenaI18n.translatePage(p.language || 'ar');
+
+  const activeDays = p.dndDays || [0, 1, 2, 3, 4, 5, 6];
+  document.querySelectorAll('.dnd-day').forEach((btn) => {
+    const day = Number.parseInt(btn.dataset.day, 10);
+    btn.classList.toggle('active', activeDays.includes(day));
+  });
+}
+
+async function save() {
+  const { prefs = {} } = await api.storage.local.get('prefs');
+  const updated = { ...DEFAULT_PREFS, ...prefs };
+
+  for (const field of rangeFields) {
+    const [inputId, , prefKey, isFloat] = field;
+    updated[prefKey] = isFloat ? Number.parseFloat($(inputId).value) : Number.parseInt($(inputId).value, 10);
+  }
+
+  if (updated.maxIntervalMin <= updated.minIntervalMin) {
+    updated.maxIntervalMin = updated.minIntervalMin + 1;
+  }
+
+  for (const [inputId, prefKey] of checkFields) {
+    updated[prefKey] = $(inputId).checked;
+  }
+
+  updated.quietDomains = parseDomains($('quietDomains').value);
+  updated.minimalDomains = parseDomains($('minimalDomains').value);
+  updated.language = $('languageSelect').value || 'ar';
+
+  updated.dndStart = $('dndStart').value || '23:00';
+  updated.dndEnd = $('dndEnd').value || '06:00';
+  updated.dndDays = Array.from(document.querySelectorAll('.dnd-day.active')).map((btn) =>
+    Number.parseInt(btn.dataset.day, 10),
+  );
+
+  await api.storage.local.set({ prefs: updated });
+  SakeenaI18n.translatePage(updated.language);
+  flash(SakeenaI18n.getMessage(updated.language, 'saved'));
+}
+
+$('saveBtn').addEventListener('click', save);
+
+$('resetBtn').addEventListener('click', async () => {
+  const { prefs = {} } = await api.storage.local.get('prefs');
+  const language = prefs.language || 'ar';
+  if (!confirm(SakeenaI18n.getMessage(language, 'resetConfirm'))) return;
+
+  await api.storage.local.set({ prefs: DEFAULT_PREFS });
+  await load();
+  flash(SakeenaI18n.getMessage(language, 'resetSaved'));
+});
+
+$('privacyBtn').addEventListener('click', () => {
+  api.tabs.create({ url: 'privacy.html' });
+});
 
 $('addCustomBtn').addEventListener('click', async () => {
   const text = $('customText').value.trim();
   const category = $('customCategory').value;
-  const weight = parseInt($('customWeight').value, 10);
+  const weight = Number.parseInt($('customWeight').value, 10);
 
   if (!text) {
     $('customText').focus();
@@ -247,25 +256,9 @@ $('addCustomBtn').addEventListener('click', async () => {
   flash('أُضيف بنجاح');
 });
 
-function escapeHtml(s) {
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-load();
-loadCustomAzkar();
-
-// ===== DND day chip toggles =====
-
 document.querySelectorAll('.dnd-day').forEach((btn) => {
   btn.addEventListener('click', () => btn.classList.toggle('active'));
 });
-
-// ===== Import / Export custom azkar =====
 
 $('exportBtn').addEventListener('click', async () => {
   const { customAzkar = [] } = await api.storage.local.get('customAzkar');
@@ -303,20 +296,20 @@ $('importFile').addEventListener('change', async (e) => {
   if (!file) return;
 
   try {
-    const text = await file.text();
-    const data = JSON.parse(text);
+    const textFileContent = await file.text();
+    const data = JSON.parse(textFileContent);
 
     if (!data.azkar || !Array.isArray(data.azkar)) {
       throw new Error('ملف غير صالح — لا يحتوي على قائمة أذكار');
     }
 
-    const validCategories = ['dua', 'light', 'focus', 'morning', 'evening'];
+    const validCategories = new Set(['dua', 'light', 'focus', 'morning', 'evening']);
     const imported = data.azkar
       .filter((z) => z.text && typeof z.text === 'string' && z.text.trim().length > 0)
       .map((z) => ({
         id: 'c' + Date.now() + Math.random().toString(36).slice(2, 8),
         text: z.text.slice(0, 500).trim(),
-        category: validCategories.includes(z.category) ? z.category : 'dua',
+        category: validCategories.has(z.category) ? z.category : 'dua',
         weight: [1, 3, 5].includes(z.weight) ? z.weight : 3,
         createdAt: Date.now(),
       }));
@@ -347,6 +340,9 @@ $('importFile').addEventListener('change', async (e) => {
   } catch (err) {
     alert('خطأ في استيراد الملف: ' + err.message);
   } finally {
-    e.target.value = ''; // reset so the same file can be re-selected
+    e.target.value = '';
   }
 });
+
+await load();
+await loadCustomAzkar();

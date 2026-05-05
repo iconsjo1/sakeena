@@ -46,7 +46,24 @@ h1 { font-size: 24px; font-weight: 700; line-height: 1; }
   font-family: inherit;
   transition: all 180ms ease;
 }
-.reset-btn:hover { background: #fff; border-color: #c0b89e; color: #1a2e1f; }
+
+.privacy-btn {
+  background: #2c5e2a;
+  border: 1px solid #1e4e2a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 180ms ease;
+}
+
+.privacy-btn:hover {
+  background: #1e4e2a;
+  border-color: #1a4e1f;
+  color: white;
+}
 
 .grid {
   display: grid;
@@ -509,4 +526,16 @@ textarea:focus { outline: 2px solid rgba(45,106,79,0.3); border-color: #2d6a4f; 
 .custom-action-btn:hover {
   background: #f0ede0;
   border-color: #c9c2a8;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
