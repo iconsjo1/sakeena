@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title data-i18n="privacyTitle">سياسة الخصوصية - سكينة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="options.css">
+  <link rel="stylesheet" href="options/options.css">
   <style>
     .privacy-page {
       max-width: 800px;
@@ -150,20 +150,42 @@
     </div>
 
     <div class="back-link-container">
-      <a href="options.html" class="back-link" data-i18n="backToOptions">العودة إلى الإعدادات</a>
+      <a href="options/options.html" class="back-link" data-i18n="backToOptions">العودة إلى الإعدادات</a>
     </div>
   </div>
 
-  <script src="../scripts/i18n.js"></script>
+  <script src="scripts/i18n.js"></script>
   <script>
-    const api = typeof browser === 'object' ? browser : chrome;
-    document.addEventListener('DOMContentLoaded', async () => {
-      if (typeof SakeenaI18n !== 'undefined') {
+    (async () => {
+      const api = typeof browser === 'undefined' ? chrome : browser;
+      try {
         const data = await api.storage.local.get(['prefs']);
-        const language = data.prefs?.language || 'ar';
-        SakeenaI18n.translatePage(language);
+        let language = data.prefs?.language;
+        
+        // Fallback to browser UI language if no preference is saved
+        if (!language && api.i18n) {
+          language = api.i18n.getUILanguage();
+        }
+        language = language || 'ar';
+        
+        // Normalize language code
+        if (language.includes('-')) language = language.split('-')[0];
+        
+        // Set language and direction immediately to avoid flashing
+        document.documentElement.lang = language;
+        document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+        
+        // Wait for elements to be ready then translate
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => SakeenaI18n.translatePage(language));
+        } else {
+          SakeenaI18n.translatePage(language);
+        }
+      } catch (e) {
+        console.error('Sakeena: Failed to load language preferences', e);
+        if (typeof SakeenaI18n !== 'undefined') SakeenaI18n.translatePage('ar');
       }
-    });
+    })();
   </script>
 </body>
 

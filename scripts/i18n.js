@@ -492,6 +492,8 @@ const SakeenaI18n = (() => {
   };
 
   function getMessage(locale, key, substitutions = []) {
+    // Normalize locale (e.g., 'en-US' -> 'en')
+    if (locale && locale.includes('-')) locale = locale.split('-')[0];
     if (!locale || !MESSAGES[locale]) locale = 'ar';
     let msg = MESSAGES[locale][key] || MESSAGES['ar'][key] || key;
 
@@ -527,6 +529,7 @@ const SakeenaI18n = (() => {
   }
 
   function translatePage(locale) {
+    if (locale && locale.includes('-')) locale = locale.split('-')[0];
     if (!locale || !MESSAGES[locale]) locale = 'ar';
     document.documentElement.lang = locale;
     document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';

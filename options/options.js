@@ -215,7 +215,7 @@ $('resetBtn').addEventListener('click', async () => {
 });
 
 $('privacyBtn').addEventListener('click', () => {
-  api.tabs.create({ url: 'privacy.html' });
+  api.tabs.create({ url: '../privacy.html' });
 });
 
 $('addCustomBtn').addEventListener('click', async () => {

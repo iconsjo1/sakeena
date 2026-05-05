@@ -261,8 +261,8 @@ selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة ج
 ## 🔵 v2.0 — Public release (up next)
 
 ### Internationalization
-- [ ] Full `_locales/` setup (Arabic + English UI)
-- [ ] User-selectable UI language
+- [x] Full `_locales/` setup (Arabic + English UI)
+- [x] User-selectable UI language
 
 ### Accessibility
 - [ ] Full ARIA audit
@@ -270,7 +270,7 @@ selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة ج
 - [ ] Screen-reader-friendly streak/stats announcements
 
 ### Distribution
-- [ ] Privacy policy page (no data collection statement)
+- [x] Privacy policy page (no data collection statement)
 - [ ] Landing page (sakeena.iconsjo.com)
 - [ ] Chrome Web Store listing
 - [ ] Firefox AMO signed build
