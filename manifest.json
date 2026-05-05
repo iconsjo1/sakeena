@@ -1,20 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Sakeena — أذكار ذكية",
+  "default_locale": "ar",
+  "name": "__MSG_extensionName__",
   "short_name": "Sakeena",
   "version": "1.5.0",
-  "description": "تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك. Smart Islamic remembrance for your browser.",
+  "description": "__MSG_extensionDescription__",
 
-  "permissions": [
-    "storage",
-    "alarms",
-    "tabs",
-    "idle"
-  ],
+  "permissions": ["storage", "alarms", "tabs", "idle"],
 
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "host_permissions": ["<all_urls>"],
 
   "background": {
     "service_worker": "scripts/background.js"
@@ -23,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["scripts/content.js"],
+      "js": ["scripts/i18n.js", "scripts/content.js"],
       "run_at": "document_idle",
       "all_frames": false
     }

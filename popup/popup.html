@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
-  <title>سكينة</title>
+  <title data-i18n="popupTitle">سكينة</title>
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
   <header class="hero">
     <div class="hero-bg"></div>
@@ -25,17 +27,17 @@
       <label class="toggle">
         <input type="checkbox" id="enableToggle" checked>
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        <span class="toggle-label">التذكير مفعَّل</span>
+        <span class="toggle-label" data-i18n="toggleEnabled">التذكير مفعَّل</span>
       </label>
     </section>
 
     <!-- Snooze status (shown only when active) -->
     <section class="snooze-status" id="snoozeStatus" hidden>
       <span class="snooze-icon">🌙</span>
-      <span class="snooze-text">
+      <span class="snooze-text" data-i18n="snoozeUntil">
         مؤجَّل حتى <span id="snoozeUntilText">—</span>
       </span>
-      <button class="snooze-clear" id="snoozeClear" type="button">إلغاء</button>
+      <button class="snooze-clear" id="snoozeClear" type="button" data-i18n="cancel">إلغاء</button>
     </section>
 
     <!-- Streak -->
@@ -45,10 +47,10 @@
         <div class="streak-numbers">
           <div class="streak-current">
             <span class="streak-value" id="streakCurrent">0</span>
-            <span class="streak-label">يوم متتالي</span>
+            <span class="streak-label" data-i18n="consecutiveDays">يوم متتالي</span>
           </div>
           <div class="streak-longest">
-            أطول: <span id="streakLongest">0</span>
+            <span data-i18n="longest">أطول</span>: <span id="streakLongest">0</span>
           </div>
         </div>
       </div>
@@ -62,21 +64,21 @@
     <section class="stats">
       <div class="stat">
         <div class="stat-value" id="statShown">0</div>
-        <div class="stat-label">عُرضت</div>
+        <div class="stat-label" data-i18n="statShown">عُرضت</div>
       </div>
       <div class="stat">
         <div class="stat-value" id="statViewed">0</div>
-        <div class="stat-label">قُرئت</div>
+        <div class="stat-label" data-i18n="statViewed">قُرئت</div>
       </div>
       <div class="stat">
         <div class="stat-value" id="statRatio">—</div>
-        <div class="stat-label">معدل القراءة</div>
+        <div class="stat-label" data-i18n="statRatio">معدل القراءة</div>
       </div>
     </section>
 
     <!-- Theme Picker -->
     <section class="theme-section">
-      <div class="section-title">المظهر</div>
+      <div class="section-title" data-i18n="themeSection">المظهر</div>
       <div class="theme-row">
         <button class="theme-chip theme-chip-emerald" data-theme="emerald" title="زمردي">
           <span class="theme-dot"></span>
@@ -98,29 +100,42 @@
 
     <section class="actions">
       <button class="btn btn-primary" id="testBtn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
-        اعرض ذكرًا الآن
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 3l14 9-14 9V3z" />
+        </svg>
+        <span data-i18n="showNow">اعرض ذكرًا الآن</span>
       </button>
       <div class="btn-row">
-        <button class="btn btn-secondary btn-half" id="statsBtn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        <button class="btn btn-secondary btn-half" id="statsBtn" data-i18n="statsButton">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="20" x2="12" y2="10" />
+            <line x1="18" y1="20" x2="18" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="16" />
+          </svg>
           الإحصاءات
         </button>
-        <button class="btn btn-secondary btn-half" id="optionsBtn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <button class="btn btn-secondary btn-half" id="optionsBtn" data-i18n="optionsButton">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
           الإعدادات
         </button>
       </div>
     </section>
 
     <footer class="foot">
-      <div class="sadaqah-mini">
-        🤲 صدقة جارية لوجه الله — أخوكم <bdi>عبد الفتاح</bdi>
-      </div>
-      <div class="version-line">v1.5 · ادعُ لنا ولوالدينا</div>
+      <div class="sadaqah-mini" data-i18n="footerSadaqah"></div>
+      <div class="version-line" data-i18n="footerVersion"></div>
     </footer>
   </main>
 
+  <script src="../scripts/i18n.js"></script>
   <script src="popup.js"></script>
 </body>
+
 </html>

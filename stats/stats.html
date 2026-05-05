@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <title>إحصاءات سكينة</title>
   <link rel="stylesheet" href="stats.css">
 </head>
+
 <body>
   <div class="page">
     <header class="page-header">
       <div class="brand">
         <div class="logo-mark">س</div>
         <div>
-          <h1>إحصاءاتي مع سكينة</h1>
+          <h1 data-i18n="statsTitle">إحصاءاتي مع سكينة</h1>
           <p id="hijriToday">— —</p>
         </div>
       </div>
@@ -79,7 +81,7 @@
           <div class="feature-title">المزامنة بين الأجهزة</div>
           <div class="feature-help" id="syncStatus">آخر مزامنة: —</div>
         </div>
-        <button class="btn btn-secondary" id="syncNowBtn">مزامنة الآن</button>
+        <button class="btn btn-secondary" id="syncNowBtn" data-i18n="syncNow">مزامنة الآن</button>
       </div>
 
       <div class="row-feature">
@@ -107,7 +109,9 @@
     </div>
   </div>
 
+  <script src="../scripts/i18n.js"></script>
   <script src="../scripts/hijri.js"></script>
   <script src="stats.js"></script>
 </body>
+
 </html>

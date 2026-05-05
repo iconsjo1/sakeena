@@ -1,0 +1,227 @@
+{
+  "extensionName": {
+    "message": "Sakeena — أذكار ذكية"
+  },
+  "extensionDescription": {
+    "message": "تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك."
+  },
+  "actionTitle": {
+    "message": "Sakeena — أذكار ذكية"
+  },
+  "optionsTitle": {
+    "message": "إعدادات سكينة"
+  },
+  "optionsHeader": {
+    "message": "إعدادات متقدمة"
+  },
+  "resetDefaults": {
+    "message": "إعادة الإعدادات الافتراضية"
+  },
+  "sadaqahNotice": {
+    "message": "هذا العمل مجاني — صدقة جارية لوجه الله تعالى"
+  },
+  "sadaqahDedication": {
+    "message": "أُهدي ثوابه لوالديّ ولكل المسلمين. أخوكم: <bdi>عبد الفتاح</bdi> — لا تنسوني من صالح دعائكم."
+  },
+  "timingHeading": {
+    "message": "⏱️ التوقيت الذكي"
+  },
+  "timingHelp": {
+    "message": "يختار سكينة وقتًا عشوائيًا داخل المدى التالي — ليبقى الذكر مفاجأة لطيفة لا روتينًا متوقعًا."
+  },
+  "minInterval": {
+    "message": "الحد الأدنى بين الأذكار <span class=\"hint\">(دقيقة)</span>"
+  },
+  "maxInterval": {
+    "message": "الحد الأقصى بين الأذكار <span class=\"hint\">(دقيقة)</span>"
+  },
+  "cooldown": {
+    "message": "فترة الهدوء بعد كل ذكر <span class=\"hint\">(دقيقة)</span>"
+  },
+  "autoDismiss": {
+    "message": "مدة ظهور الذكر <span class=\"hint\">(ثانية)</span>"
+  },
+  "behaviorHeading": {
+    "message": "🧠 السلوك الذكي"
+  },
+  "contextAware": {
+    "message": "الوعي بسياق الصفحة (دعاء السفر على Booking، الشفاء على المواقع الطبية...)"
+  },
+  "adaptiveFrequency": {
+    "message": "التعلّم التلقائي — قلّل التكرار إذا تجاهلت الأذكار"
+  },
+  "hijriAwareness": {
+    "message": "الوعي بالتقويم الهجري (الجمعة، رمضان، ذو الحجة)"
+  },
+  "hadithMode": {
+    "message": "عرض حديث شريف أحيانًا ضمن الأذكار"
+  },
+  "showTranslation": {
+    "message": "عرض الترجمة الإنجليزية تحت الأذكار"
+  },
+  "respectIdle": {
+    "message": "إيقاف التذكير عند ترك الجهاز (locked screen)"
+  },
+  "pauseDuringTyping": {
+    "message": "تأجيل الذكر إذا كنت تكتب"
+  },
+  "vibrationAnimation": {
+    "message": "حركة نبض خفيفة عند الظهور"
+  },
+  "soundEnabled": {
+    "message": "صوت لطيف عند ظهور الذكر"
+  },
+  "showStreak": {
+    "message": "عرض عداد الأيام المتتالية"
+  },
+  "syncEnabled": {
+    "message": "المزامنة بين الأجهزة (نفس حساب المتصفح)"
+  },
+  "ttsHeading": {
+    "message": "🎙️ التلاوة الصوتية (تجريبي)"
+  },
+  "ttsHelp": {
+    "message": "قراءة صوتية للذكر تستخدم محرك الصوت في المتصفح. الصوت العربي قد لا يكون متوفرًا في كل الأجهزة."
+  },
+  "ttsEnabled": {
+    "message": "تفعيل التلاوة الصوتية للأذكار"
+  },
+  "ttsRate": {
+    "message": "سرعة التلاوة <span class=\"hint\">(0.5 = أبطأ، 1.5 = أسرع)</span>"
+  },
+  "ttsVolume": {
+    "message": "مستوى الصوت"
+  },
+  "languageHeading": {
+    "message": "🌐 لغة الواجهة"
+  },
+  "languageHelp": {
+    "message": "اختر اللغة التي تريد أن يظهر بها واجهة سكينة."
+  },
+  "languageLabel": {
+    "message": "لغة الواجهة"
+  },
+  "languageArabic": {
+    "message": "العربية"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "dndHeading": {
+    "message": "🌙 ساعات الهدوء (Do Not Disturb)"
+  },
+  "dndHelp": {
+    "message": "جدول ساعات يومية لا يظهر فيها أي ذكر — للنوم أو فترات العمل العميق."
+  },
+  "dndEnabled": {
+    "message": "تفعيل ساعات الهدوء المجدولة"
+  },
+  "dndFrom": {
+    "message": "من"
+  },
+  "dndTo": {
+    "message": "إلى"
+  },
+  "dndDaysLabel": {
+    "message": "الأيام:"
+  },
+  "quietDomainsHeading": {
+    "message": "🔇 المواقع الهادئة"
+  },
+  "quietDomainsHelp": {
+    "message": "في هذه المواقع لن يظهر أي ذكر إطلاقًا. اكتب نطاقًا واحدًا في كل سطر."
+  },
+  "minimalDomainsHeading": {
+    "message": "👁️ الوضع المختصر"
+  },
+  "minimalDomainsHelp": {
+    "message": "في هذه المواقع تظهر أذكار قصيرة فقط (تسبيح/استغفار) بحجم أصغر — مثل YouTube و Netflix."
+  },
+  "customAzkarHeading": {
+    "message": "📿 أذكار وأدعية مخصصة"
+  },
+  "exportBtn": {
+    "message": "تصدير الأذكار"
+  },
+  "exportBtnText": {
+    "message": "تصدير"
+  },
+  "importBtn": {
+    "message": "استيراد أذكار"
+  },
+  "importBtnText": {
+    "message": "استيراد"
+  },
+  "customAzkarHelp": {
+    "message": "أضف أدعيتك الخاصة (لوالديك، لأشخاص محبّبين، أدعية ترتاح لها). تُحفظ محلياً في متصفحك ولا تُرسل لأي مكان. يمكنك تصدير قائمتك ومشاركتها مع الأهل والأصحاب — صدقة جارية."
+  },
+  "customTextPlaceholder": {
+    "message": "اكتب الذكر أو الدعاء هنا..."
+  },
+  "categoryDua": {
+    "message": "فئة: أدعية"
+  },
+  "categoryLight": {
+    "message": "فئة: خفيفة"
+  },
+  "categoryFocus": {
+    "message": "فئة: للتركيز"
+  },
+  "categoryMorning": {
+    "message": "فئة: الصباح"
+  },
+  "categoryEvening": {
+    "message": "فئة: المساء"
+  },
+  "weightNormal": {
+    "message": "أهمية: عادية"
+  },
+  "weightMedium": {
+    "message": "أهمية: متوسطة"
+  },
+  "weightHigh": {
+    "message": "أهمية: عالية"
+  },
+  "addCustomBtn": {
+    "message": "+ إضافة"
+  },
+  "emptyState": {
+    "message": "لم تُضِف أذكارًا بعد"
+  },
+  "saveButton": {
+    "message": "حفظ الإعدادات"
+  },
+  "footerSadaqah": {
+    "message": "🤲 صدقة جارية لوجه الله — أخوكم <bdi>عبد الفتاح</bdi>"
+  },
+  "footerVersion": {
+    "message": "v1.5 · ادعُ لنا ولوالدينا"
+  },
+  "logoMark": {
+    "message": "س"
+  },
+  "mainTitle": {
+    "message": "سكينة"
+  },
+  "day6": {
+    "message": "س"
+  },
+  "day5": {
+    "message": "ج"
+  },
+  "day4": {
+    "message": "خ"
+  },
+  "day3": {
+    "message": "ر"
+  },
+  "day2": {
+    "message": "ث"
+  },
+  "day1": {
+    "message": "ن"
+  },
+  "day0": {
+    "message": "ح"
+  }
+}
