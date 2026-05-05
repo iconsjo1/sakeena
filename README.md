@@ -102,4 +102,9 @@ This extension is offered as **صدقة جارية** — a continuous charity. I
 
 Suggestions, corrections to azkar wording, and additional categories are welcome.
 
-**Made with ♥ in Amman, Jordan** — by Icon Software (iconsjo.com)
+**Made with ♥ in Amman, Jordan** — [iconsjo.com](https://iconsjo.com)
+
+---
+
+### 🤝 How to Contribute
+Want to help add more authentic azkar or improve the code? Check out our [Contribution Guide](CONTRIBUTING.md).

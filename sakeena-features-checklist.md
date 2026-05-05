@@ -274,8 +274,8 @@ selecting authentic, deeply meaningful du'as. May Allah accept it as صدقة ج
 - [ ] Landing page (sakeena.iconsjo.com)
 - [ ] Chrome Web Store listing
 - [ ] Firefox AMO signed build
-- [ ] Open-source release on GitHub
-- [ ] Contribution guide (how to add azkar with proper sourcing)
+- [x] Open-source release on GitHub (https://github.com/iconsjo1/sakeena)
+- [x] Contribution guide (how to add azkar with proper sourcing)
 
 ---
 

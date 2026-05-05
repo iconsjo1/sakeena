@@ -295,6 +295,8 @@ function showOverlay(payload) {
   currentOverlay = root;
 
   const card = shadow.querySelector('.card');
+  card.setAttribute('data-position', prefs.position || 'bottom-right');
+  
   const dismissMs = (prefs.autoDismissSec || 12) * 1000;
   shadow.querySelector('.progress-bar').style.animationDuration = `${dismissMs}ms`;
 

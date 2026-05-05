@@ -19,6 +19,7 @@ const DEFAULT_PREFS = {
   adaptiveFrequency: true,
   showTranslation: false,
   language: 'ar',
+  position: 'bottom-right',
   dndEnabled: false,
   dndStart: '23:00',
   dndEnd: '06:00',
@@ -157,6 +158,7 @@ async function load() {
   $('quietDomains').value = (p.quietDomains || []).join('\n');
   $('minimalDomains').value = (p.minimalDomains || []).join('\n');
   $('languageSelect').value = p.language || 'ar';
+  $('positionSelect').value = p.position || 'bottom-right';
 
   $('dndStart').value = p.dndStart || '23:00';
   $('dndEnd').value = p.dndEnd || '06:00';
@@ -190,6 +192,7 @@ async function save() {
   updated.quietDomains = parseDomains($('quietDomains').value);
   updated.minimalDomains = parseDomains($('minimalDomains').value);
   updated.language = $('languageSelect').value || 'ar';
+  updated.position = $('positionSelect').value || 'bottom-right';
 
   updated.dndStart = $('dndStart').value || '23:00';
   updated.dndEnd = $('dndEnd').value || '06:00';
@@ -216,6 +219,10 @@ $('resetBtn').addEventListener('click', async () => {
 
 $('privacyBtn').addEventListener('click', () => {
   api.tabs.create({ url: '../privacy.html' });
+});
+
+$('libraryBtn').addEventListener('click', () => {
+  api.tabs.create({ url: '../library/library.html' });
 });
 
 $('addCustomBtn').addEventListener('click', async () => {

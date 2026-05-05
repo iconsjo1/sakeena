@@ -53,7 +53,8 @@ const CONSTANTS = {
     syncEnabled: true,              // cross-device sync of settings + streak
     ttsEnabled: false,              // optional Arabic TTS recitation
     ttsRate: 0.85,                  // playback rate (0.5–1.5)
-    ttsVolume: 0.6                  // 0.0–1.0
+    ttsVolume: 0.6,                 // 0.0–1.0
+    position: "bottom-right"        // corner or center
   }
 };
 
@@ -247,7 +248,8 @@ async function tryShowZikr() {
           showSnooze: true,
           ttsEnabled: prefs.ttsEnabled,
           ttsRate: prefs.ttsRate,
-          ttsVolume: prefs.ttsVolume
+          ttsVolume: prefs.ttsVolume,
+          position: prefs.position || "bottom-right"
         }
       }
     });
@@ -478,7 +480,8 @@ api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
                 showSnooze: true,
                 ttsEnabled: p.ttsEnabled,
                 ttsRate: p.ttsRate,
-                ttsVolume: p.ttsVolume
+                ttsVolume: p.ttsVolume,
+                position: p.position || "bottom-right"
               }
             }
           });

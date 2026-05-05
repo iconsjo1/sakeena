@@ -77,8 +77,6 @@
 
 .card {
   position: fixed;
-  bottom: 24px;
-  inset-inline-end: 24px;
   z-index: 2147483647;
 
   transform: translateZ(0);
@@ -106,7 +104,47 @@
   isolation: isolate;
 
   animation: sakeena-in 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Position Variants */
+.card[data-position="bottom-right"] {
+  bottom: 24px;
+  inset-inline-end: 24px;
   transform-origin: bottom right;
+}
+
+.card[data-position="bottom-left"] {
+  bottom: 24px;
+  inset-inline-start: 24px;
+  transform-origin: bottom left;
+}
+
+.card[data-position="top-right"] {
+  top: 24px;
+  inset-inline-end: 24px;
+  transform-origin: top right;
+}
+
+.card[data-position="top-left"] {
+  top: 24px;
+  inset-inline-start: 24px;
+  transform-origin: top left;
+}
+
+.card[data-position="center"] {
+  top: 50%;
+  inset-inline-start: 50%;
+  transform: translate(calc(var(--rtl-offset, 1) * -50%), -50%);
+  transform-origin: center;
+  animation: sakeena-in-center 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* RTL handling for center position */
+:host([dir="rtl"]) .card[data-position="center"] {
+  --rtl-offset: -1;
+}
+:host([dir="ltr"]) .card[data-position="center"] {
+  --rtl-offset: 1;
 }
 
 .theme-sepia .card {
@@ -402,6 +440,11 @@
 @keyframes sakeena-in {
   from { opacity: 0; transform: translateY(20px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sakeena-in-center {
+  from { opacity: 0; transform: translate(calc(var(--rtl-offset, 1) * -50%), -50%) scale(0.95); }
+  to { opacity: 1; transform: translate(calc(var(--rtl-offset, 1) * -50%), -50%) scale(1); }
 }
 
 @keyframes sakeena-out {

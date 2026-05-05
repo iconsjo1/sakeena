@@ -17,8 +17,11 @@
           <p data-i18n="optionsHeader">إعدادات متقدمة</p>
         </div>
       </div>
-      <button class="reset-btn" id="resetBtn" data-i18n="resetDefaults">إعادة الإعدادات الافتراضية</button>
-      <button class="privacy-btn" id="privacyBtn" data-i18n="privacyPolicy">سياسة الخصوصية</button>
+      <div class="header-actions">
+        <button class="reset-btn" id="resetBtn" data-i18n="resetDefaults">إعادة الإعدادات الافتراضية</button>
+        <button class="reset-btn" id="libraryBtn" data-i18n="libraryButton">مكتبة الأذكار</button>
+        <button class="privacy-btn" id="privacyBtn" data-i18n="privacyPolicy">سياسة الخصوصية</button>
+      </div>
     </header>
 
     <!-- Sadaqah notice -->
@@ -172,7 +175,17 @@
             <option value="ar" data-i18n="languageArabic">العربية</option>
             <option value="en" data-i18n="languageEnglish">English</option>
           </select>
-          <span class="setting-description" data-i18n="languageLabel">لغة الواجهة</span>
+        </div>
+
+        <div class="row" style="margin-top: 16px;">
+          <label for="positionSelect" data-i18n="positionLabel">مكان ظهور الذكر</label>
+          <select id="positionSelect">
+            <option value="bottom-right" data-i18n="posBottomRight">أسفل اليمين (افتراضي)</option>
+            <option value="bottom-left" data-i18n="posBottomLeft">أسفل اليسار</option>
+            <option value="top-right" data-i18n="posTopRight">أعلى اليمين</option>
+            <option value="top-left" data-i18n="posTopLeft">أعلى اليسار</option>
+            <option value="center" data-i18n="posCenter">وسط الشاشة</option>
+          </select>
         </div>
       </section>
 

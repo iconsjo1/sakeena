@@ -136,6 +136,11 @@ $('testBtn').addEventListener('click', async () => {
 
 $('optionsBtn').addEventListener('click', () => api.runtime.openOptionsPage());
 
+$('libraryBtn').addEventListener('click', () => {
+  api.tabs.create({ url: api.runtime.getURL('library/library.html') });
+  window.close();
+});
+
 $('statsBtn').addEventListener('click', () => {
   api.tabs.create({ url: api.runtime.getURL('stats/stats.html') });
   window.close();
