@@ -558,7 +558,12 @@ const SakeenaI18n = (() => {
     const val = getMessage(locale, key);
 
     if (el.dataset.i18nHtml !== undefined) {
-      el.innerHTML = val;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(val, 'text/html');
+      el.textContent = '';
+      while (doc.body.firstChild) {
+        el.appendChild(doc.body.firstChild);
+      }
       return;
     }
     if (el.dataset.i18nPlaceholder !== undefined) {

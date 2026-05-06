@@ -6,7 +6,9 @@
  *  - Theme preference propagation
  */
 
-importScripts("hijri.js", "streak.js", "context.js", "sync.js");
+if (typeof importScripts !== "undefined") {
+  importScripts("hijri.js", "streak.js", "context.js", "sync.js");
+}
 
 const api = typeof browser !== "undefined" ? browser : chrome;
 

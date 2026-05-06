@@ -5,6 +5,15 @@ let builtInAzkar = [];
 let customAzkar = [];
 let categories = {};
 let editingId = null;
+ 
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
 
 async function init() {
   // 1. Initialize i18n
@@ -73,7 +82,7 @@ function populateFilters(language) {
   
   // Clear existing
   while (filter.children.length > 2) filter.removeChild(filter.lastChild);
-  modalCat.innerHTML = '';
+  modalCat.textContent = '';
 
   Object.keys(categories).forEach(id => {
     const option = document.createElement('option');
@@ -111,17 +120,30 @@ function mergeAndRender(language) {
 function renderAzkar(items, language) {
   const grid = document.getElementById('azkarGrid');
   if (items.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><p data-i18n="noResults">No results found.</p></div>`;
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    const p = document.createElement('p');
+    p.dataset.i18n = 'noResults';
+    p.textContent = 'No results found.';
+    empty.appendChild(p);
+    grid.textContent = '';
+    grid.appendChild(empty);
     return;
   }
 
-  grid.innerHTML = items.map(item => `
-    <div class="zikr-card" data-id="${item.id}">
-      <div class="zikr-text">${item.text}</div>
-      ${item.en ? `<div class="zikr-en">${item.en}</div>` : ''}
+  grid.textContent = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'zikr-card';
+    card.dataset.id = item.id;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`
+      <div class="zikr-text">${escapeHtml(item.text)}</div>
+      ${item.en ? `<div class="zikr-en">${escapeHtml(item.en)}</div>` : ''}
       <div class="zikr-meta">
         <div>
-          <span class="category-tag">${item.categoryName}</span>
+          <span class="category-tag">${escapeHtml(item.categoryName)}</span>
           ${item.isCustom ? `<span class="custom-badge" data-i18n="customTag">مخصص</span>` : ''}
         </div>
         ${item.isCustom ? `
@@ -131,8 +153,13 @@ function renderAzkar(items, language) {
           </div>
         ` : ''}
       </div>
-    </div>
-  `).join('');
+    `, 'text/html');
+
+    while (doc.body.firstChild) {
+      card.appendChild(doc.body.firstChild);
+    }
+    grid.appendChild(card);
+  });
 
   // Wire actions
   grid.querySelectorAll('.edit-zikr').forEach(btn => {

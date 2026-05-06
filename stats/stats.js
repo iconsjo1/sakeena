@@ -65,7 +65,11 @@ function renderHeroMetrics(stats, streak, language) {
 
 function renderCategoryBreakdown(history, language) {
   if (history.length === 0) {
-    $('catBars').innerHTML = `<div class="empty-state">${SakeenaI18n.getMessage(language, 'noDataYet')}</div>`;
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = SakeenaI18n.getMessage(language, 'noDataYet');
+    $('catBars').textContent = '';
+    $('catBars').appendChild(empty);
     return;
   }
 
@@ -76,17 +80,34 @@ function renderCategoryBreakdown(history, language) {
   const max = Math.max(...Object.values(counts));
   const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
   
-  $('catBars').innerHTML = sorted.map(([cat, count]) => {
+  $('catBars').textContent = '';
+  sorted.forEach(([cat, count]) => {
     const pct = Math.round((count / max) * 100);
     const label = CATEGORY_LABELS[cat] || cat;
-    return `
-      <div class="cat-bar-row">
-        <div class="cat-bar-label">${label}</div>
-        <div class="cat-bar-track"><div class="cat-bar-fill" style="width: ${pct}%"></div></div>
-        <div class="cat-bar-count">${count}</div>
-      </div>
-    `;
-  }).join('');
+    
+    const row = document.createElement('div');
+    row.className = 'cat-bar-row';
+    
+    const labelEl = document.createElement('div');
+    labelEl.className = 'cat-bar-label';
+    labelEl.textContent = label;
+    
+    const track = document.createElement('div');
+    track.className = 'cat-bar-track';
+    const fill = document.createElement('div');
+    fill.className = 'cat-bar-fill';
+    fill.style.width = `${pct}%`;
+    track.appendChild(fill);
+    
+    const countEl = document.createElement('div');
+    countEl.className = 'cat-bar-count';
+    countEl.textContent = count;
+    
+    row.appendChild(labelEl);
+    row.appendChild(track);
+    row.appendChild(countEl);
+    $('catBars').appendChild(row);
+  });
 }
 
 function renderActivityHeatmap(history) {
@@ -96,7 +117,7 @@ function renderActivityHeatmap(history) {
   }
 
   const heatmap = $('heatmap');
-  heatmap.innerHTML = '';
+  heatmap.textContent = '';
   const today = new Date();
   for (let i = 29; i >= 0; i--) {
     const d = new Date(today);

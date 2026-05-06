@@ -112,24 +112,34 @@ async function loadCustomAzkar() {
   const list = $('customList');
 
   if (customAzkar.length === 0) {
-    list.innerHTML = '<div class="empty-state">لم تُضِف أذكارًا بعد</div>';
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = 'لم تُضِف أذكارًا بعد';
+    list.textContent = '';
+    list.appendChild(empty);
     return;
   }
 
-  list.innerHTML = '';
+  list.textContent = '';
   customAzkar.forEach((item) => {
     const div = document.createElement('div');
     div.className = 'custom-item';
-    div.innerHTML = `
+    
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`
       <div style="flex: 1;">
         <div class="custom-item-text">${escapeHtml(item.text)}</div>
         <div class="custom-item-meta">
-          <span class="custom-item-tag">${CATEGORY_LABELS[item.category] || item.category}</span>
-          <span class="custom-item-tag">أهمية: ${WEIGHT_LABELS[item.weight] || item.weight}</span>
+          <span class="custom-item-tag">${escapeHtml(CATEGORY_LABELS[item.category] || item.category)}</span>
+          <span class="custom-item-tag">أهمية: ${escapeHtml(WEIGHT_LABELS[item.weight] || item.weight)}</span>
         </div>
       </div>
       <button class="custom-delete" data-id="${item.id}" aria-label="حذف">×</button>
-    `;
+    `, 'text/html');
+    
+    while (doc.body.firstChild) {
+      div.appendChild(doc.body.firstChild);
+    }
     list.appendChild(div);
   });
 
