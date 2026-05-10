@@ -283,7 +283,7 @@ $('exportBtn').addEventListener('click', async () => {
 
   const exportData = {
     app: 'Sakeena',
-    version: '1.3.0',
+    version: '1.5.1',
     exportedAt: new Date().toISOString(),
     azkar: customAzkar.map((z) => ({
       text: z.text,

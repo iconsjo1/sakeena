@@ -1,11 +1,11 @@
-# Sakeena — سكينة (v1.5.0)
+# Sakeena — سكينة (v1.5.1)
 
 > Smart Islamic remembrance for your browser. Now with cross-device sync, audio recitation, and detailed activity analytics.
 > تذكير ذكي بالأذكار — يفهم سياقك، يحترم تركيزك، ولا يزعجك.
 
 A privacy-first, calm, context-aware browser extension that delivers Islamic remembrances at the right moment.
 
-## 📊 Project Summary (v1.5)
+## 📊 Project Summary (v1.5.1)
 
 | Metric | Count |
 | --- | --- |
