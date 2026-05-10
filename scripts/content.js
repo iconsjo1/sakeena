@@ -289,14 +289,10 @@ function showOverlay(payload) {
     zikr.type === 'hadith' ? 'card--hadith' : '',
   ].filter(Boolean).join(' ');
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(
-    buildOverlayMarkup(zikr, prefs, strings, api.runtime.getURL('overlay/overlay.css'), cardClasses),
-    'text/html'
+  const fragment = document.createRange().createContextualFragment(
+    buildOverlayMarkup(zikr, prefs, strings, api.runtime.getURL('overlay/overlay.css'), cardClasses)
   );
-  while (doc.body.firstChild) {
-    shadow.appendChild(doc.body.firstChild);
-  }
+  shadow.appendChild(fragment);
 
   document.documentElement.appendChild(root);
   currentOverlay = root;

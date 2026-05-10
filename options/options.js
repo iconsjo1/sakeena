@@ -125,8 +125,7 @@ async function loadCustomAzkar() {
     const div = document.createElement('div');
     div.className = 'custom-item';
     
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(`
+    const fragment = document.createRange().createContextualFragment(`
       <div style="flex: 1;">
         <div class="custom-item-text">${escapeHtml(item.text)}</div>
         <div class="custom-item-meta">
@@ -135,11 +134,9 @@ async function loadCustomAzkar() {
         </div>
       </div>
       <button class="custom-delete" data-id="${item.id}" aria-label="حذف">×</button>
-    `, 'text/html');
+    `);
     
-    while (doc.body.firstChild) {
-      div.appendChild(doc.body.firstChild);
-    }
+    div.appendChild(fragment);
     list.appendChild(div);
   });
 

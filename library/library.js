@@ -137,8 +137,7 @@ function renderAzkar(items, language) {
     card.className = 'zikr-card';
     card.dataset.id = item.id;
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(`
+    const fragment = document.createRange().createContextualFragment(`
       <div class="zikr-text">${escapeHtml(item.text)}</div>
       ${item.en ? `<div class="zikr-en">${escapeHtml(item.en)}</div>` : ''}
       <div class="zikr-meta">
@@ -153,11 +152,9 @@ function renderAzkar(items, language) {
           </div>
         ` : ''}
       </div>
-    `, 'text/html');
+    `);
 
-    while (doc.body.firstChild) {
-      card.appendChild(doc.body.firstChild);
-    }
+    card.appendChild(fragment);
     grid.appendChild(card);
   });
 
